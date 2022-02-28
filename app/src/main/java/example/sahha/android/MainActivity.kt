@@ -13,6 +13,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import example.sahha.android.ui.theme.SahhaexampleandroidTheme
 
 class MainActivity : ComponentActivity() {
+    // Initial template code, yet to implement SDK.
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
