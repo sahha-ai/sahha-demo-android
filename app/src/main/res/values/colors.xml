@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="sahha_darkest">#FF333242</color>
+    <color name="sahha_dark">#FF4C4B5E</color>
+    <color name="sahha_gray">#FF8E7B7B</color>
+    <color name="sahha_light_gray">#FFEFEFEF</color>
 </resources>
