@@ -1,4 +1,4 @@
-package example.sahha.android
+package example.sahha.android.view.screens
 
 sealed class Screen(val route: String) {
     object Home: Screen(route = "home")

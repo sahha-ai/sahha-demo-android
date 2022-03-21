@@ -1,4 +1,4 @@
-package example.sahha.android.ui.theme
+package example.sahha.android.view.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
