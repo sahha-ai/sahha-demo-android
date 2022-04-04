@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
-rootProject.name = "sahha-example-android"
+rootProject.name = "sahha-demo-android"
 include ':app'

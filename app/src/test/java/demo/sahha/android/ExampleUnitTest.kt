@@ -1,4 +1,4 @@
-package example.sahha.android
+package demo.sahha.android
 
 import org.junit.Test
 

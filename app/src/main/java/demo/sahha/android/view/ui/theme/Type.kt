@@ -1,4 +1,4 @@
-package example.sahha.android.view.ui.theme
+package demo.sahha.android.view.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
@@ -7,7 +7,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import example.sahha.android.R
+import demo.sahha.android.R
 
 val rubikFamily = FontFamily(
     Font(R.font.rubik, FontWeight.Light),
