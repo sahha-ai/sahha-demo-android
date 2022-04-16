@@ -22,7 +22,7 @@ private val verticalSpacer = Modifier.size(10.dp)
 fun Permission(
     navController: NavController
 ) {
-    var activityRecognitionStatus by remember { mutableStateOf(SahhaActivityStatus.PENDING.name) }
+    var activityRecognitionStatus by remember { mutableStateOf(SahhaActivityStatus.pending.name) }
 
     SahhaScaffoldWithTopbar(
         navController = navController,

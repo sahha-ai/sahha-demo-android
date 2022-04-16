@@ -32,14 +32,10 @@ import sdk.sahha.android.Sahha
 
 private val verticalSpacer = Modifier.size(10.dp)
 
-const val CUST_ID = "a78afc9b-cae3-4736-8bb1-ca174c16a2ed"
-const val PROFILE_ID = "5b992635-ade9-401c-a3bc-733b8651851d"
-
 @Composable
 fun Authenticate(navController: NavController, context: Context) {
-    var customerId by remember { mutableStateOf(CUST_ID) }
-    var profileId by remember { mutableStateOf(PROFILE_ID) }
     var token by remember { mutableStateOf("") }
+    var refreshToken by remember { mutableStateOf("") }
     val localFocusManager = LocalFocusManager.current
 
     Scaffold(
@@ -68,8 +64,8 @@ fun Authenticate(navController: NavController, context: Context) {
     ) {
         RowAndColumn {
             OutlinedTextField(
-                value = customerId,
-                onValueChange = { customerId = it },
+                value = token,
+                onValueChange = { token = it },
                 label = {
                     Text(
                         "Customer ID", fontFamily = rubikFamily,
@@ -89,8 +85,8 @@ fun Authenticate(navController: NavController, context: Context) {
             )
             Spacer(verticalSpacer)
             OutlinedTextField(
-                value = profileId,
-                onValueChange = { profileId = it },
+                value = refreshToken,
+                onValueChange = { refreshToken = it },
                 label = {
                     Text(
                         "Profile ID", fontFamily = rubikFamily,
@@ -110,12 +106,7 @@ fun Authenticate(navController: NavController, context: Context) {
             )
             Spacer(Modifier.size(20.dp))
             SahhaThemeButton(buttonTitle = "Authenticate", bottomSpace = 20.dp) {
-                Sahha.authenticate(
-                    customerId,
-                    profileId,
-                ) { value ->
-                    token = value
-                }
+                Sahha.saveTokens(token, refreshToken)
             }
             Text(
                 "Token: $token",

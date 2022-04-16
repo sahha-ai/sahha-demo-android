@@ -43,12 +43,24 @@ fun Home(navController: NavController) {
                     navController.navigate(Screen.Permission.route)
                 }
 
+                SahhaThemeButton(buttonTitle = "Profile") {
+                    navController.navigate(Screen.Profile.route)
+                }
+
                 SahhaThemeButton(buttonTitle = "Start Data Collection") {
                     Sahha.start()
                 }
 
                 SahhaThemeButton(buttonTitle = "Motion Activity") {
                     navController.navigate(Screen.MotionActivity.route)
+                }
+
+                SahhaThemeButton(buttonTitle = "Device Activity") {
+                    navController.navigate(Screen.DeviceActivity.route)
+                }
+
+                SahhaThemeButton(buttonTitle = "Analyze") {
+                    navController.navigate(Screen.Analyze.route)
                 }
             }
         }

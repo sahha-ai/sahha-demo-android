@@ -15,53 +15,49 @@ import demo.sahha.android.view.components.SahhaScaffoldWithTopbar
 import demo.sahha.android.view.components.SahhaThemeButton
 import demo.sahha.android.view.ui.theme.rubikFamily
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import sdk.sahha.android.Sahha
 import sdk.sahha.android.domain.model.enums.SahhaSensor
 
 @Composable
-fun MotionActivity(
+fun DeviceActivity(
     navController: NavController
 ) {
     val context = LocalContext.current
     val mainScope = CoroutineScope(Main)
-    var sleepData by remember { mutableStateOf(listOf<String>()) }
 
-    SahhaScaffoldWithTopbar(
-        navController = navController,
-        topBarTitle = "Motion Activity"
-    ) {
+    var deviceData by remember { mutableStateOf(listOf<String>()) }
+
+    SahhaScaffoldWithTopbar(navController = navController, topBarTitle = "Device Activity") {
         RowAndColumn {
-            Sahha.motion.getData { sleepData = it }
+            Sahha.device.getData { deviceData = it }
 
-            SahhaThemeButton(
-                buttonTitle = "Manually POST Data",
-                bottomSpace = 20.dp
-            ) {
-                Sahha.motion.postData(SahhaSensor.sleep) { error, success ->
+            SahhaThemeButton(buttonTitle = "Manually POST Data") {
+                Sahha.device.postData(SahhaSensor.device) { error, success ->
                     error?.also {
                         mainScope.launch {
                             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
                         }
                     }
+
                     success?.also {
                         mainScope.launch {
                             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-                            Sahha.motion.getData { sleepData = it }
+                            Sahha.device.getData { deviceData = it }
                         }
                     }
                 }
             }
-            Text("Sleep", fontFamily = rubikFamily)
+
+            Text("Device", fontFamily = rubikFamily)
             Spacer(Modifier.size(10.dp))
 
             LazyColumn {
                 item {
-                    for (sleep in sleepData) {
+                    for (data in deviceData) {
                         Text(
-                            sleep,
+                            data,
                             fontFamily = rubikFamily
                         )
                         Spacer(Modifier.size(10.dp))

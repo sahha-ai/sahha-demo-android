@@ -15,11 +15,12 @@ import demo.sahha.android.view.ui.theme.rubikFamily
 @Composable
 fun SahhaScaffoldWithTopbar(
     navController: NavController,
-    topBarTitle: String, scaffoldContent: @Composable ((PaddingValues) -> Unit)
+    topBarTitle: String,
+    modifier: Modifier = Modifier.fillMaxSize(),
+    scaffoldContent: @Composable ((PaddingValues) -> Unit),
 ) {
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 title = {

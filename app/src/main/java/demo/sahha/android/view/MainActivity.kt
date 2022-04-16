@@ -15,14 +15,13 @@ import sdk.sahha.android.domain.model.enums.SahhaEnvironment
 
 class MainActivity : ComponentActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.SahhaexampleandroidTheme)
 
         Sahha.configure(
             this,
-            SahhaSettings(environment = SahhaEnvironment.DEVELOPMENT)
+            SahhaSettings(environment = SahhaEnvironment.development)
         )
 
         setContent {
@@ -43,6 +42,15 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(Screen.MotionActivity.route) {
                         MotionActivity(navController)
+                    }
+                    composable(Screen.DeviceActivity.route) {
+                        DeviceActivity(navController)
+                    }
+                    composable(Screen.Analyze.route) {
+                        Analyze(navController)
+                    }
+                    composable(Screen.Profile.route) {
+                        Profile(navController)
                     }
                 }
             }
