@@ -9,18 +9,20 @@ import demo.sahha.android.view.components.RowAndColumn
 import demo.sahha.android.view.components.SahhaScaffoldWithTopbar
 import demo.sahha.android.view.components.SahhaThemeButton
 import demo.sahha.android.view.ui.theme.rubikFamily
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
 import sdk.sahha.android.Sahha
 
 @Composable
 fun Analyze(navController: NavController) {
-    val context = LocalContext.current
     var analysisResponse by remember { mutableStateOf("") }
     SahhaScaffoldWithTopbar(navController = navController, topBarTitle = "Analyze") {
         RowAndColumn {
             SahhaThemeButton(buttonTitle = "Analyze") {
                 Sahha.analyze { error, success ->
                     error?.also {
-                        Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                        analysisResponse = it
                     }
                     success?.also {
                         analysisResponse = it

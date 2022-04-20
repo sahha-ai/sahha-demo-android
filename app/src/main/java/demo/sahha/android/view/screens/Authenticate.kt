@@ -36,6 +36,7 @@ private val verticalSpacer = Modifier.size(10.dp)
 fun Authenticate(navController: NavController, context: Context) {
     var token by remember { mutableStateOf("") }
     var refreshToken by remember { mutableStateOf("") }
+    var callback by remember { mutableStateOf("") }
     val localFocusManager = LocalFocusManager.current
 
     Scaffold(
@@ -68,7 +69,7 @@ fun Authenticate(navController: NavController, context: Context) {
                 onValueChange = { token = it },
                 label = {
                     Text(
-                        "Customer ID", fontFamily = rubikFamily,
+                        "Token", fontFamily = rubikFamily,
                         fontSize = 14.sp
                     )
                 },
@@ -89,7 +90,7 @@ fun Authenticate(navController: NavController, context: Context) {
                 onValueChange = { refreshToken = it },
                 label = {
                     Text(
-                        "Profile ID", fontFamily = rubikFamily,
+                        "Refresh Token", fontFamily = rubikFamily,
                         fontSize = 14.sp
                     )
                 },
@@ -106,10 +107,15 @@ fun Authenticate(navController: NavController, context: Context) {
             )
             Spacer(Modifier.size(20.dp))
             SahhaThemeButton(buttonTitle = "Authenticate", bottomSpace = 20.dp) {
-                Sahha.saveTokens(token, refreshToken)
+                Sahha.authenticate(token, refreshToken) { error, success ->
+                    if (success)
+                        callback = "Stored successfully."
+                    else
+                        callback = error ?: "Failed to store tokens."
+                }
             }
             Text(
-                "Token: $token",
+                callback,
                 fontFamily = rubikFamily,
                 fontSize = 14.sp,
                 modifier = Modifier.verticalScroll(

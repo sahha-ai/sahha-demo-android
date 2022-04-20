@@ -34,19 +34,16 @@ fun DeviceActivity(
             Sahha.device.getData { deviceData = it }
 
             SahhaThemeButton(buttonTitle = "Manually POST Data") {
-                Sahha.device.postData(SahhaSensor.device) { error, success ->
-                    error?.also {
+                Sahha.device.postSensorData(SahhaSensor.device) { error, success ->
+                    if(success)
                         mainScope.launch {
-                            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-                        }
-                    }
-
-                    success?.also {
-                        mainScope.launch {
-                            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Post successful.", Toast.LENGTH_LONG).show()
                             Sahha.device.getData { deviceData = it }
                         }
-                    }
+                    else
+                        mainScope.launch {
+                            Toast.makeText(context, error ?: "Failed to post data.", Toast.LENGTH_LONG).show()
+                        }
                 }
             }
 

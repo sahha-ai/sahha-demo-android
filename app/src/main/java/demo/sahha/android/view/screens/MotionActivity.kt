@@ -15,7 +15,6 @@ import demo.sahha.android.view.components.SahhaScaffoldWithTopbar
 import demo.sahha.android.view.components.SahhaThemeButton
 import demo.sahha.android.view.ui.theme.rubikFamily
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import sdk.sahha.android.Sahha
@@ -40,18 +39,16 @@ fun MotionActivity(
                 buttonTitle = "Manually POST Data",
                 bottomSpace = 20.dp
             ) {
-                Sahha.motion.postData(SahhaSensor.sleep) { error, success ->
-                    error?.also {
+                Sahha.motion.postSensorData(SahhaSensor.sleep) { error, success ->
+                    if (success)
                         mainScope.launch {
-                            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-                        }
-                    }
-                    success?.also {
-                        mainScope.launch {
-                            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Post successful.", Toast.LENGTH_LONG).show()
                             Sahha.motion.getData { sleepData = it }
                         }
-                    }
+                    else
+                        mainScope.launch {
+                            Toast.makeText(context, error ?: "Failed to post data.", Toast.LENGTH_LONG).show()
+                        }
                 }
             }
             Text("Sleep", fontFamily = rubikFamily)
