@@ -28,7 +28,7 @@ import androidx.navigation.NavController
 import demo.sahha.android.view.components.RowAndColumn
 import demo.sahha.android.view.components.SahhaThemeButton
 import demo.sahha.android.view.ui.theme.rubikFamily
-import sdk.sahha.android.Sahha
+import sdk.sahha.android.source.Sahha
 
 private val verticalSpacer = Modifier.size(10.dp)
 

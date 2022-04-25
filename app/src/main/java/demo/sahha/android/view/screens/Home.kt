@@ -1,5 +1,6 @@
 package demo.sahha.android.view.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -7,16 +8,22 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import demo.sahha.android.R
 import demo.sahha.android.view.components.SahhaThemeButton
-import sdk.sahha.android.Sahha
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import sdk.sahha.android.source.Sahha
 
 @Composable
 fun Home(navController: NavController) {
     val verticalSpacer = Modifier.size(10.dp)
+    val context = LocalContext.current
+    val mainScope = CoroutineScope(Main)
 
     // A surface container using the 'background' color from the theme
     Surface(
@@ -48,7 +55,11 @@ fun Home(navController: NavController) {
                 }
 
                 SahhaThemeButton(buttonTitle = "Start Data Collection") {
-                    Sahha.start()
+                    Sahha.start { error, success ->
+                        mainScope.launch {
+                            Toast.makeText(context, error ?: "Successful", Toast.LENGTH_LONG).show()
+                        }
+                    }
                 }
 
                 SahhaThemeButton(buttonTitle = "Motion Activity") {

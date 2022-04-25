@@ -6,6 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -13,8 +14,8 @@ import demo.sahha.android.view.components.RowAndColumn
 import demo.sahha.android.view.components.SahhaScaffoldWithTopbar
 import demo.sahha.android.view.components.SahhaThemeButton
 import demo.sahha.android.view.ui.theme.rubikFamily
-import sdk.sahha.android.Sahha
-import sdk.sahha.android.domain.model.enums.SahhaActivityStatus
+import sdk.sahha.android.source.Sahha
+import sdk.sahha.android.source.SahhaActivityStatus
 
 private val verticalSpacer = Modifier.size(10.dp)
 
@@ -23,6 +24,7 @@ fun Permission(
     navController: NavController
 ) {
     var activityRecognitionStatus by remember { mutableStateOf(SahhaActivityStatus.pending.name) }
+    val context = LocalContext.current
 
     SahhaScaffoldWithTopbar(
         navController = navController,
@@ -38,16 +40,14 @@ fun Permission(
             Text("Activity Recognition: $activityRecognitionStatus", fontFamily = rubikFamily)
             Spacer(Modifier.size(20.dp))
             SahhaThemeButton(buttonTitle = "Activity Recognition") {
-                Sahha.motion.activate { newStatus ->
+                Sahha.motion.activate { error, newStatus ->
                     activityRecognitionStatus = newStatus.name
                 }
             }
             Text("Or", fontFamily = rubikFamily)
             Spacer(verticalSpacer)
             SahhaThemeButton(buttonTitle = "Open Settings") {
-                Sahha.motion.promptUserToActivate { newStatus ->
-                    activityRecognitionStatus = newStatus.name
-                }
+                Sahha.openAppSettings(context)
             }
         }
     }

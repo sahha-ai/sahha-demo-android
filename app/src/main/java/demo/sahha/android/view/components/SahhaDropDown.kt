@@ -13,9 +13,19 @@ import androidx.compose.ui.unit.dp
 import demo.sahha.android.view.ui.theme.rubikFamily
 
 @Composable
-fun SahhaDropDown(label: String, options: List<String>, callback: ((selected: String) -> Unit)) {
+fun SahhaDropDown(
+    label: String,
+    options: List<String>,
+    existingOption: String? = null,
+    callback: ((selected: String) -> Unit)
+) {
     var expanded by remember { mutableStateOf(false) }
     var selected by remember { mutableStateOf("Please select") }
+
+    existingOption?.also {
+        selected = it
+        callback(selected)
+    }
 
     Text(label, fontFamily = rubikFamily)
     Spacer(Modifier.size(5.dp))
@@ -50,8 +60,8 @@ fun SahhaDropDown(label: String, options: List<String>, callback: ((selected: St
                     DropdownMenuItem(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            callback(option)
                             selected = option
+                            callback(selected)
                             expanded = false
                         }
                     ) {

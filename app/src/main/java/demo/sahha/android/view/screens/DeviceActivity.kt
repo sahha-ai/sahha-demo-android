@@ -17,8 +17,8 @@ import demo.sahha.android.view.ui.theme.rubikFamily
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import sdk.sahha.android.Sahha
-import sdk.sahha.android.domain.model.enums.SahhaSensor
+import sdk.sahha.android.source.Sahha
+import sdk.sahha.android.source.SahhaSensor
 
 @Composable
 fun DeviceActivity(
@@ -34,7 +34,7 @@ fun DeviceActivity(
             Sahha.device.getData { deviceData = it }
 
             SahhaThemeButton(buttonTitle = "Manually POST Data") {
-                Sahha.device.postSensorData(SahhaSensor.device) { error, success ->
+                Sahha.postSensorData(setOf(SahhaSensor.device)) { error, success ->
                     if(success)
                         mainScope.launch {
                             Toast.makeText(context, "Post successful.", Toast.LENGTH_LONG).show()

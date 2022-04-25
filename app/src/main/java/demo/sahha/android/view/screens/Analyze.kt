@@ -1,18 +1,13 @@
 package demo.sahha.android.view.screens
 
-import android.widget.Toast
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import demo.sahha.android.view.components.RowAndColumn
 import demo.sahha.android.view.components.SahhaScaffoldWithTopbar
 import demo.sahha.android.view.components.SahhaThemeButton
 import demo.sahha.android.view.ui.theme.rubikFamily
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.launch
-import sdk.sahha.android.Sahha
+import sdk.sahha.android.source.Sahha
 
 @Composable
 fun Analyze(navController: NavController) {

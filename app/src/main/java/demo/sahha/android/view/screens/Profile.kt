@@ -1,5 +1,6 @@
 package demo.sahha.android.view.screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,33 +21,18 @@ import demo.sahha.android.view.enum.Gender
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import sdk.sahha.android.Sahha
-import sdk.sahha.android.domain.model.profile.SahhaDemographic
+import sdk.sahha.android.source.Sahha
+import sdk.sahha.android.source.SahhaDemographic
 
 @Composable
 fun Profile(navController: NavController) {
     var age by remember { mutableStateOf("") }
-    var gender by remember { mutableStateOf("") }
-    var country by remember { mutableStateOf("") }
-    var birthCountry by remember { mutableStateOf("") }
+    var gender by remember { mutableStateOf("Please select") }
+    var country by remember { mutableStateOf("Please select") }
+    var birthCountry by remember { mutableStateOf("Please select") }
     val localFocusManager = LocalFocusManager.current
     val context = LocalContext.current
     val mainScope = CoroutineScope(Main)
-
-    Sahha.getDemographic { error, demographic ->
-        error?.also {
-            mainScope.launch {
-                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-            }
-        }
-
-        demographic?.also {
-            it.age?.let { _age -> age = _age.toString() }
-            gender = it.gender ?: ""
-            country = it.country ?: ""
-            birthCountry = it.birthCountry ?: ""
-        }
-    }
 
     SahhaScaffoldWithTopbar(navController = navController, topBarTitle = "Profile",
         modifier = Modifier
@@ -72,15 +58,27 @@ fun Profile(navController: NavController) {
                 age = it
             }
 
-            SahhaDropDown(label = "Gender", options = Gender.options) {
+            SahhaDropDown(
+                label = "Gender",
+                options = Gender.options,
+                existingOption = gender
+            ) {
                 gender = it
             }
 
-            SahhaDropDown(label = "Country", options = Country.options) {
+            SahhaDropDown(
+                label = "Country",
+                options = Country.options,
+                existingOption = country
+            ) {
                 country = it
             }
 
-            SahhaDropDown(label = "Country of Birth", options = Country.options) {
+            SahhaDropDown(
+                label = "Country of Birth",
+                options = Country.options,
+                existingOption = birthCountry
+            ) {
                 birthCountry = it
             }
 
@@ -90,19 +88,21 @@ fun Profile(navController: NavController) {
                         age.toInt(), gender, country, birthCountry
                     )
                 ) { error, success ->
-                    error?.also {
-                        mainScope.launch {
-                            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-                        }
-                    }
-
-                    success?.also {
-                        mainScope.launch {
-                            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-                        }
+                    mainScope.launch {
+                        Toast.makeText(context, error ?: "Successful", Toast.LENGTH_LONG).show()
                     }
                 }
             }
+        }
+    }
+
+    Sahha.getDemographic { error, demographic ->
+        Log.w("Profile", demographic.toString())
+        demographic?.also {
+            it.age?.also { a -> age = a.toString() }
+            gender = it.gender ?: "Please select"
+            country = it.country ?: "Please select"
+            birthCountry = it.birthCountry ?: "Please select"
         }
     }
 }

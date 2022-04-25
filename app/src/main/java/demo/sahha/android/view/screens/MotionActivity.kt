@@ -17,8 +17,8 @@ import demo.sahha.android.view.ui.theme.rubikFamily
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import sdk.sahha.android.Sahha
-import sdk.sahha.android.domain.model.enums.SahhaSensor
+import sdk.sahha.android.source.Sahha
+import sdk.sahha.android.source.SahhaSensor
 
 @Composable
 fun MotionActivity(
@@ -39,7 +39,7 @@ fun MotionActivity(
                 buttonTitle = "Manually POST Data",
                 bottomSpace = 20.dp
             ) {
-                Sahha.motion.postSensorData(SahhaSensor.sleep) { error, success ->
+                Sahha.postSensorData(setOf(SahhaSensor.sleep)) { error, success ->
                     if (success)
                         mainScope.launch {
                             Toast.makeText(context, "Post successful.", Toast.LENGTH_LONG).show()
@@ -47,7 +47,11 @@ fun MotionActivity(
                         }
                     else
                         mainScope.launch {
-                            Toast.makeText(context, error ?: "Failed to post data.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                context,
+                                error ?: "Failed to post data.",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                 }
             }
