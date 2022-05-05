@@ -102,24 +102,14 @@ fun Profile(navController: NavController) {
                 }
             }
 
-
-//            SahhaDropDown(
-//                label = "Country",
-//                options = Country.options,
-//                existingOption = country
-//            ) {
-//                country = it
-//            }
-//
-//            SahhaDropDown(
-//                label = "Country of Birth",
-//                options = Country.options,
-//                existingOption = birthCountry
-//            ) {
-//                birthCountry = it
-//            }
-
             SahhaThemeButton(buttonTitle = "POST Profile") {
+                if (age.isEmpty()) {
+                    mainScope.launch {
+                        Toast.makeText(context, "Age must not be null", Toast.LENGTH_LONG).show()
+                    }
+                    return@SahhaThemeButton
+                }
+
                 Sahha.postDemographic(
                     SahhaDemographic(
                         age.toInt(), gender, country, birthCountry

@@ -31,14 +31,12 @@ fun DeviceActivity(
 
     SahhaScaffoldWithTopbar(navController = navController, topBarTitle = "Device Activity") {
         RowAndColumn {
-            Sahha.device.getData { deviceData = it }
 
             SahhaThemeButton(buttonTitle = "Manually POST Data") {
                 Sahha.postSensorData(setOf(SahhaSensor.device)) { error, success ->
                     if(success)
                         mainScope.launch {
                             Toast.makeText(context, "Post successful.", Toast.LENGTH_LONG).show()
-                            Sahha.device.getData { deviceData = it }
                         }
                     else
                         mainScope.launch {

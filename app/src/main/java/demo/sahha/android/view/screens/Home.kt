@@ -62,14 +62,6 @@ fun Home(navController: NavController) {
                     }
                 }
 
-                SahhaThemeButton(buttonTitle = "Motion Activity") {
-                    navController.navigate(Screen.MotionActivity.route)
-                }
-
-                SahhaThemeButton(buttonTitle = "Device Activity") {
-                    navController.navigate(Screen.DeviceActivity.route)
-                }
-
                 SahhaThemeButton(buttonTitle = "Analyze") {
                     navController.navigate(Screen.Analyze.route)
                 }

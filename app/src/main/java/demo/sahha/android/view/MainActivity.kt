@@ -23,7 +23,6 @@ class MainActivity : ComponentActivity() {
             application,
             SahhaSettings(environment = SahhaEnvironment.development)
         )
-        Sahha.motion.prepareActivity(this)
 
         setContent {
             SahhaexampleandroidTheme {
@@ -40,12 +39,6 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(Screen.Permission.route) {
                         Permission(navController)
-                    }
-                    composable(Screen.MotionActivity.route) {
-                        MotionActivity(navController)
-                    }
-                    composable(Screen.DeviceActivity.route) {
-                        DeviceActivity(navController)
                     }
                     composable(Screen.Analyze.route) {
                         Analyze(navController)

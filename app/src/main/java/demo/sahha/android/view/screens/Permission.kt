@@ -15,7 +15,8 @@ import demo.sahha.android.view.components.SahhaScaffoldWithTopbar
 import demo.sahha.android.view.components.SahhaThemeButton
 import demo.sahha.android.view.ui.theme.rubikFamily
 import sdk.sahha.android.source.Sahha
-import sdk.sahha.android.source.SahhaActivityStatus
+import sdk.sahha.android.source.SahhaSensor
+import sdk.sahha.android.source.SahhaSensorStatus
 
 private val verticalSpacer = Modifier.size(10.dp)
 
@@ -23,7 +24,7 @@ private val verticalSpacer = Modifier.size(10.dp)
 fun Permission(
     navController: NavController
 ) {
-    var activityRecognitionStatus by remember { mutableStateOf(SahhaActivityStatus.pending.name) }
+    var activityRecognitionStatus by remember { mutableStateOf(SahhaSensorStatus.pending.name) }
     val context = LocalContext.current
 
     SahhaScaffoldWithTopbar(
@@ -40,7 +41,7 @@ fun Permission(
             Text("Activity Recognition: $activityRecognitionStatus", fontFamily = rubikFamily)
             Spacer(Modifier.size(20.dp))
             SahhaThemeButton(buttonTitle = "Activity Recognition") {
-                Sahha.motion.activate { error, newStatus ->
+                Sahha.enableSensor(context, SahhaSensor.sleep) { error, newStatus ->
                     activityRecognitionStatus = newStatus.name
                 }
             }

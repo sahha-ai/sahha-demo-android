@@ -33,7 +33,6 @@ fun MotionActivity(
         topBarTitle = "Motion Activity"
     ) {
         RowAndColumn {
-            Sahha.motion.getData { sleepData = it }
 
             SahhaThemeButton(
                 buttonTitle = "Manually POST Data",
@@ -43,7 +42,6 @@ fun MotionActivity(
                     if (success)
                         mainScope.launch {
                             Toast.makeText(context, "Post successful.", Toast.LENGTH_LONG).show()
-                            Sahha.motion.getData { sleepData = it }
                         }
                     else
                         mainScope.launch {
