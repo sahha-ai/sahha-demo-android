@@ -24,8 +24,12 @@ private val verticalSpacer = Modifier.size(10.dp)
 fun Permission(
     navController: NavController
 ) {
-    var activityRecognitionStatus by remember { mutableStateOf(SahhaSensorStatus.pending.name) }
+    var activityRecognitionStatus by remember { mutableStateOf("") }
     val context = LocalContext.current
+
+    Sahha.getSensorStatus(context, SahhaSensor.sleep) { error, newStatus ->
+        activityRecognitionStatus = newStatus.name
+    }
 
     SahhaScaffoldWithTopbar(
         navController = navController,
