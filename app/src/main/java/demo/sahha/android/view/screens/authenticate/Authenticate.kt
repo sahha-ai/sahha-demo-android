@@ -1,6 +1,5 @@
 package demo.sahha.android.view.screens
 
-import android.content.Context
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +13,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
@@ -24,19 +23,22 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import demo.sahha.android.view.components.RowAndColumn
 import demo.sahha.android.view.components.SahhaThemeButton
+import demo.sahha.android.view.screens.authenticate.AuthenticateViewModel
 import demo.sahha.android.view.ui.theme.rubikFamily
 import sdk.sahha.android.source.Sahha
 
 private val verticalSpacer = Modifier.size(10.dp)
 
 @Composable
-fun Authenticate(navController: NavController, context: Context) {
-    var token by remember { mutableStateOf("") }
-    var refreshToken by remember { mutableStateOf("") }
-    var callback by remember { mutableStateOf("") }
+fun Authenticate(
+    navController: NavController,
+    viewModel: AuthenticateViewModel = hiltViewModel()
+) {
+    val state = viewModel.state.value
     val localFocusManager = LocalFocusManager.current
 
     Scaffold(
@@ -65,8 +67,8 @@ fun Authenticate(navController: NavController, context: Context) {
     ) {
         RowAndColumn {
             OutlinedTextField(
-                value = token,
-                onValueChange = { token = it },
+                value = state.profileToken,
+                onValueChange = { viewModel.setProfileToken(it) },
                 label = {
                     Text(
                         "Token", fontFamily = rubikFamily,
@@ -86,8 +88,8 @@ fun Authenticate(navController: NavController, context: Context) {
             )
             Spacer(verticalSpacer)
             OutlinedTextField(
-                value = refreshToken,
-                onValueChange = { refreshToken = it },
+                value = state.refreshToken,
+                onValueChange = { state.refreshToken = it },
                 label = {
                     Text(
                         "Refresh Token", fontFamily = rubikFamily,
@@ -107,15 +109,15 @@ fun Authenticate(navController: NavController, context: Context) {
             )
             Spacer(Modifier.size(20.dp))
             SahhaThemeButton(buttonTitle = "Authenticate", bottomSpace = 20.dp) {
-                Sahha.authenticate(token, refreshToken) { error, success ->
+                Sahha.authenticate(state.profileToken, state.refreshToken) { error, success ->
                     if (success)
-                        callback = "Stored successfully."
+                        state.callback = "Stored successfully."
                     else
-                        callback = error ?: "Failed to store tokens."
+                        state.callback = error ?: "Failed to store tokens."
                 }
             }
             Text(
-                callback,
+                state.callback,
                 fontFamily = rubikFamily,
                 fontSize = 14.sp,
                 modifier = Modifier.verticalScroll(
