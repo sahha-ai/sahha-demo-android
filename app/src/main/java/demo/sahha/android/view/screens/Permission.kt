@@ -16,7 +16,6 @@ import demo.sahha.android.view.components.SahhaThemeButton
 import demo.sahha.android.view.ui.theme.rubikFamily
 import sdk.sahha.android.source.Sahha
 import sdk.sahha.android.source.SahhaSensor
-import sdk.sahha.android.source.SahhaSensorStatus
 
 private val verticalSpacer = Modifier.size(10.dp)
 
