@@ -11,12 +11,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import demo.sahha.android.view.components.RowAndColumn
+import demo.sahha.android.view.components.SahhaLazyRow
 import demo.sahha.android.view.components.SahhaScaffoldWithTopbar
 import demo.sahha.android.view.components.SahhaThemeButton
 import demo.sahha.android.view.ui.theme.rubikFamily
 import sdk.sahha.android.source.Sahha
 import sdk.sahha.android.source.SahhaSensor
-import sdk.sahha.android.source.SahhaSensorStatus
 
 private val verticalSpacer = Modifier.size(10.dp)
 
@@ -36,7 +36,7 @@ fun Permission(
         topBarTitle = "Permissions"
     )
     {
-        RowAndColumn(
+        RowAndColumn (
             columnHorizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(verticalSpacer)
