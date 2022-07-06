@@ -54,14 +54,6 @@ fun Home(navController: NavController) {
                     navController.navigate(Screen.Profile.route)
                 }
 
-                SahhaThemeButton(buttonTitle = "Start Data Collection") {
-                    Sahha.start { error, success ->
-                        mainScope.launch {
-                            Toast.makeText(context, error ?: "Successful", Toast.LENGTH_LONG).show()
-                        }
-                    }
-                }
-
                 SahhaThemeButton(buttonTitle = "Analyze") {
                     navController.navigate(Screen.Analyze.route)
                 }

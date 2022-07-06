@@ -33,7 +33,6 @@ fun MotionActivity(
         topBarTitle = "Motion Activity"
     ) {
         RowAndColumn {
-
             SahhaThemeButton(
                 buttonTitle = "Manually POST Data",
                 bottomSpace = 20.dp
