@@ -25,15 +25,28 @@ import sdk.sahha.android.source.Sahha
 import sdk.sahha.android.source.SahhaDemographic
 
 @Composable
-fun Profile(navController: NavController) {
+fun Profile(
+    navController: NavController,
+) {
     var age by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf("Please select") }
     var country by remember { mutableStateOf("") }
     var birthCountry by remember { mutableStateOf("") }
+    var ethnicity by remember { mutableStateOf("") }
+    var occupation by remember { mutableStateOf("") }
+    var industry by remember { mutableStateOf("") }
+    var incomeRange by remember { mutableStateOf("") }
+    var education by remember { mutableStateOf("") }
+    var relationship by remember { mutableStateOf("") }
+    var locale by remember { mutableStateOf("") }
+    var livingArrangement by remember { mutableStateOf("") }
+    var birthDate by remember { mutableStateOf("") }
+
     val localFocusManager = LocalFocusManager.current
     val context = LocalContext.current
     val mainScope = CoroutineScope(Main)
     val countryCharLimit = 2
+    val standardCharLimit = 50
 
 
     SahhaScaffoldWithTopbar(navController = navController, topBarTitle = "Profile",
@@ -44,7 +57,7 @@ fun Profile(navController: NavController) {
                     localFocusManager.clearFocus()
                 })
             }) {
-        RowAndColumn {
+        SahhaLazyRow {
             SahhaTextField(
                 value = age,
                 label = "Age",
@@ -89,18 +102,164 @@ fun Profile(navController: NavController) {
                 value = birthCountry,
                 label = "Country of Birth",
                 keyboardActions = KeyboardActions {
-                    localFocusManager.clearFocus()
+                    localFocusManager.moveFocus(FocusDirection.Down)
                 },
                 bottomSpacer = 20.dp,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Done
+                    imeAction = ImeAction.Next
                 )
             ) {
                 if (it.length <= countryCharLimit) {
                     birthCountry = it.letters().uppercase()
                 }
             }
+
+            SahhaTextField(
+                value = ethnicity,
+                label = "Ethnicity",
+                keyboardActions = KeyboardActions {
+                    localFocusManager.moveFocus(FocusDirection.Down)
+                },
+                bottomSpacer = 20.dp,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            ) {
+                if (it.length <= standardCharLimit)
+                    ethnicity = it
+            }
+
+            SahhaTextField(
+                value = occupation,
+                label = "Occupation",
+                keyboardActions = KeyboardActions {
+                    localFocusManager.moveFocus(FocusDirection.Down)
+                },
+                bottomSpacer = 20.dp,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            ) {
+                if (it.length <= standardCharLimit)
+                    occupation = it
+            }
+
+            SahhaTextField(
+                value = industry,
+                label = "Industry",
+                keyboardActions = KeyboardActions {
+                    localFocusManager.moveFocus(FocusDirection.Down)
+                },
+                bottomSpacer = 20.dp,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            ) {
+                if (it.length <= standardCharLimit)
+                    industry = it
+            }
+
+            SahhaTextField(
+                value = incomeRange,
+                label = "Income",
+                keyboardActions = KeyboardActions {
+                    localFocusManager.moveFocus(FocusDirection.Down)
+                },
+                bottomSpacer = 20.dp,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            ) {
+                if (it.length <= standardCharLimit)
+                    incomeRange = it
+            }
+
+            SahhaTextField(
+                value = education,
+                label = "Education",
+                keyboardActions = KeyboardActions {
+                    localFocusManager.moveFocus(FocusDirection.Down)
+                },
+                bottomSpacer = 20.dp,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            ) {
+                if (it.length <= standardCharLimit)
+                    education = it
+            }
+
+            SahhaTextField(
+                value = relationship,
+                label = "Relationship",
+                keyboardActions = KeyboardActions {
+                    localFocusManager.moveFocus(FocusDirection.Down)
+                },
+                bottomSpacer = 20.dp,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            ) {
+                if (it.length <= standardCharLimit)
+                    relationship = it
+            }
+
+            SahhaTextField(
+                value = locale,
+                label = "Locale",
+                keyboardActions = KeyboardActions {
+                    localFocusManager.moveFocus(FocusDirection.Down)
+                },
+                bottomSpacer = 20.dp,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            ) {
+                if (it.length <= standardCharLimit)
+                    locale = it
+            }
+
+            SahhaTextField(
+                value = livingArrangement,
+                label = "Living Arrangement",
+                keyboardActions = KeyboardActions {
+                    localFocusManager.moveFocus(FocusDirection.Down)
+                },
+                bottomSpacer = 20.dp,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                )
+            ) {
+                if (it.length <= standardCharLimit)
+                    livingArrangement = it
+            }
+
+            SahhaTextField(
+                value = birthDate,
+                label = "Birth Date (YYYY-MM-DD)",
+                keyboardActions = KeyboardActions {
+                    localFocusManager.clearFocus()
+                },
+                bottomSpacer = 20.dp,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Done
+                )
+            ) {
+                if (it.length <= standardCharLimit)
+                    birthDate = it.date()
+            }
+
+
 
             SahhaThemeButton(buttonTitle = "POST Profile") {
                 if (age.isEmpty()) {
@@ -112,7 +271,19 @@ fun Profile(navController: NavController) {
 
                 Sahha.postDemographic(
                     SahhaDemographic(
-                        age.toInt(), gender, country, birthCountry
+                        age.toInt(),
+                        gender,
+                        country,
+                        birthCountry,
+                        ethnicity,
+                        occupation,
+                        industry,
+                        incomeRange,
+                        education,
+                        relationship,
+                        locale,
+                        livingArrangement,
+                        birthDate
                     )
                 ) { error, success ->
                     mainScope.launch {
@@ -130,9 +301,20 @@ fun Profile(navController: NavController) {
             gender = it.gender ?: "Please select"
             country = it.country ?: ""
             birthCountry = it.birthCountry ?: ""
+            ethnicity = it.ethnicity ?: ""
+            occupation = it.occupation ?: ""
+            industry = it.industry ?: ""
+            incomeRange = it.incomeRange ?: ""
+            education = it.education ?: ""
+            relationship = it.relationship ?: ""
+            locale = it.locale ?: ""
+            livingArrangement = it.livingArrangement ?: ""
+            birthDate = it.birthDate?.substring(0, 10) ?: ""
         }
     }
 }
 
 private fun String.letters() = filter { it.isLetter() }
+private fun String.date() = filter { it.isDigit() or (it == '-') }
+
 
