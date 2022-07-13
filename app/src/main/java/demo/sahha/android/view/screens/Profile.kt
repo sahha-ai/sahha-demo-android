@@ -57,7 +57,7 @@ fun Profile(
                     localFocusManager.clearFocus()
                 })
             }) {
-        SahhaLazyRow {
+        SahhaLazyRowAndColumn {
             SahhaTextField(
                 value = age,
                 label = "Age",
