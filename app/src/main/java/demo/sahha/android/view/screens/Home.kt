@@ -17,6 +17,7 @@ import demo.sahha.android.view.components.SahhaThemeButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
+import sdk.sahha.android.domain.worker.post.StepPostWorker
 import sdk.sahha.android.source.Sahha
 
 @Composable
@@ -56,6 +57,12 @@ fun Home(navController: NavController) {
 
                 SahhaThemeButton(buttonTitle = "Analyze") {
                     navController.navigate(Screen.Analyze.route)
+                }
+
+                SahhaThemeButton(buttonTitle = "Manual Post") {
+                    Sahha.postSensorData { error, success ->
+                        println("postSensorData: $error")
+                    }
                 }
             }
         }
