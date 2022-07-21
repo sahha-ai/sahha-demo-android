@@ -251,7 +251,7 @@ fun Profile(
                 },
                 bottomSpacer = 20.dp,
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Number,
+                    keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Done
                 )
             ) {
@@ -262,28 +262,21 @@ fun Profile(
 
 
             SahhaThemeButton(buttonTitle = "POST Profile") {
-                if (age.isEmpty()) {
-                    mainScope.launch {
-                        Toast.makeText(context, "Age must not be null", Toast.LENGTH_LONG).show()
-                    }
-                    return@SahhaThemeButton
-                }
-
                 Sahha.postDemographic(
                     SahhaDemographic(
-                        age.toInt(),
-                        gender,
-                        country,
-                        birthCountry,
-                        ethnicity,
-                        occupation,
-                        industry,
-                        incomeRange,
-                        education,
-                        relationship,
-                        locale,
-                        livingArrangement,
-                        birthDate
+                        age.ifEmpty { null }?.toInt(),
+                        gender.takeIf { it != "Please select" },
+                        country.ifEmpty { null },
+                        birthCountry.ifEmpty { null },
+                        ethnicity.ifEmpty { null },
+                        occupation.ifEmpty { null },
+                        industry.ifEmpty { null },
+                        incomeRange.ifEmpty { null },
+                        education.ifEmpty { null },
+                        relationship.ifEmpty { null },
+                        locale.ifEmpty { null },
+                        livingArrangement.ifEmpty { null },
+                        birthDate.ifEmpty { null }
                     )
                 ) { error, success ->
                     mainScope.launch {
