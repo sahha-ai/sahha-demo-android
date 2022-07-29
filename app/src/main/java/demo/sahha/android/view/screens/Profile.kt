@@ -96,6 +96,7 @@ fun Profile(
                 if (it.length <= countryCharLimit) {
                     country = it.letters().uppercase()
                 }
+                println(country)
             }
 
             SahhaTextField(

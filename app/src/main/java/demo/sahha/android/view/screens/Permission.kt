@@ -26,8 +26,11 @@ fun Permission(
     var activityRecognitionStatus by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-    Sahha.getSensorStatus(context, SahhaSensor.sleep) { error, newStatus ->
-        activityRecognitionStatus = newStatus.name
+    Sahha.getSensorStatuses(context) { error, newStatuses ->
+        activityRecognitionStatus = ""
+        newStatuses.forEach {
+            activityRecognitionStatus += "${it.key} is ${it.value}\n"
+        }
     }
 
     SahhaScaffoldWithTopbar(
@@ -35,17 +38,20 @@ fun Permission(
         topBarTitle = "Permissions"
     )
     {
-        RowAndColumn (
+        RowAndColumn(
             columnHorizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(verticalSpacer)
             Text("Permission Status", fontFamily = rubikFamily, fontSize = 20.sp)
             Spacer(verticalSpacer)
-            Text("Activity Recognition: $activityRecognitionStatus", fontFamily = rubikFamily)
+            Text(activityRecognitionStatus, fontFamily = rubikFamily)
             Spacer(Modifier.size(20.dp))
             SahhaThemeButton(buttonTitle = "Activity Recognition") {
-                Sahha.enableSensor(context, SahhaSensor.sleep) { error, newStatus ->
-                    activityRecognitionStatus = newStatus.name
+                Sahha.enableSensors(context) { error, newStatuses ->
+                    activityRecognitionStatus = ""
+                    newStatuses.forEach {
+                        activityRecognitionStatus += "${it.key} is ${it.value}\n"
+                    }
                 }
             }
             Text("Or", fontFamily = rubikFamily)
