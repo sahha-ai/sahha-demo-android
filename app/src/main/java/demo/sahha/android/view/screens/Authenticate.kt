@@ -32,10 +32,19 @@ import sdk.sahha.android.source.Sahha
 
 private val verticalSpacer = Modifier.size(10.dp)
 
+private const val AUTH_KEY = "sahha.demo.auth"
+private const val TOKEN_KEY = "sahha.demo.auth.token"
+private const val REFRESH_TOKEN_KEY = "sahha.demo.auth.refresh.token"
+
 @Composable
 fun Authenticate(navController: NavController, context: Context) {
-    var token by remember { mutableStateOf("") }
-    var refreshToken by remember { mutableStateOf("") }
+    val sharedPrefs by lazy { context.getSharedPreferences(AUTH_KEY, Context.MODE_PRIVATE) }
+    var token by remember { mutableStateOf(sharedPrefs.getString(TOKEN_KEY, "") ?: "") }
+    var refreshToken by remember {
+        mutableStateOf(
+            sharedPrefs.getString(REFRESH_TOKEN_KEY, "") ?: ""
+        )
+    }
     var callback by remember { mutableStateOf("") }
     val localFocusManager = LocalFocusManager.current
 
@@ -66,7 +75,10 @@ fun Authenticate(navController: NavController, context: Context) {
         RowAndColumn {
             OutlinedTextField(
                 value = token,
-                onValueChange = { token = it },
+                onValueChange = {
+                    token = it
+                    sharedPrefs.edit().putString(TOKEN_KEY, it).apply()
+                },
                 label = {
                     Text(
                         "Token", fontFamily = rubikFamily,
@@ -87,7 +99,10 @@ fun Authenticate(navController: NavController, context: Context) {
             Spacer(verticalSpacer)
             OutlinedTextField(
                 value = refreshToken,
-                onValueChange = { refreshToken = it },
+                onValueChange = {
+                    refreshToken = it
+                    sharedPrefs.edit().putString(REFRESH_TOKEN_KEY, it).apply()
+                },
                 label = {
                     Text(
                         "Refresh Token", fontFamily = rubikFamily,
