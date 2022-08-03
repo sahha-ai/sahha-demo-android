@@ -15,7 +15,6 @@ import demo.sahha.android.view.components.SahhaScaffoldWithTopbar
 import demo.sahha.android.view.components.SahhaThemeButton
 import demo.sahha.android.view.ui.theme.rubikFamily
 import sdk.sahha.android.source.Sahha
-import sdk.sahha.android.source.SahhaSensor
 
 private val verticalSpacer = Modifier.size(10.dp)
 
@@ -26,11 +25,8 @@ fun Permission(
     var activityRecognitionStatus by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-    Sahha.getSensorStatuses(context) { error, newStatuses ->
-        activityRecognitionStatus = ""
-        newStatuses.forEach {
-            activityRecognitionStatus += "${it.key} is ${it.value}\n"
-        }
+    Sahha.getSensorStatus(context) { _, newStatus ->
+        activityRecognitionStatus = newStatus.name
     }
 
     SahhaScaffoldWithTopbar(
@@ -47,11 +43,8 @@ fun Permission(
             Text(activityRecognitionStatus, fontFamily = rubikFamily)
             Spacer(Modifier.size(20.dp))
             SahhaThemeButton(buttonTitle = "Activity Recognition") {
-                Sahha.enableSensors(context) { error, newStatuses ->
-                    activityRecognitionStatus = ""
-                    newStatuses.forEach {
-                        activityRecognitionStatus += "${it.key} is ${it.value}\n"
-                    }
+                Sahha.enableSensors(context) { _, newStatus ->
+                    activityRecognitionStatus = newStatus.name
                 }
             }
             Text("Or", fontFamily = rubikFamily)

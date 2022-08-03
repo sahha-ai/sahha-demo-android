@@ -9,7 +9,6 @@ import androidx.navigation.compose.rememberNavController
 import demo.sahha.android.R
 import demo.sahha.android.view.screens.*
 import demo.sahha.android.view.ui.theme.SahhaexampleandroidTheme
-import sdk.sahha.android.common.SahhaSensorPermissionActivity
 import sdk.sahha.android.source.Sahha
 import sdk.sahha.android.source.SahhaEnvironment
 import sdk.sahha.android.source.SahhaSettings
@@ -22,7 +21,7 @@ class MainActivity : ComponentActivity() {
 
         Sahha.configure(
             application,
-            SahhaSettings(environment = SahhaEnvironment.development)
+            SahhaSettings(environment = SahhaEnvironment.development, postSensorDataManually = true)
         )
 
         setContent {
