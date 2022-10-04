@@ -26,7 +26,7 @@ fun Permission(
     var activityRecognitionStatus by remember { mutableStateOf("") }
     val context = LocalContext.current
 
-    Sahha.getSensorStatus(context, SahhaSensor.sleep) { error, newStatus ->
+    Sahha.getSensorStatus(context) { _, newStatus ->
         activityRecognitionStatus = newStatus.name
     }
 
@@ -44,7 +44,7 @@ fun Permission(
             Text("Activity Recognition: $activityRecognitionStatus", fontFamily = rubikFamily)
             Spacer(Modifier.size(20.dp))
             SahhaThemeButton(buttonTitle = "Activity Recognition") {
-                Sahha.enableSensor(context, SahhaSensor.sleep) { error, newStatus ->
+                Sahha.enableSensors(context) { _, newStatus ->
                     activityRecognitionStatus = newStatus.name
                 }
             }

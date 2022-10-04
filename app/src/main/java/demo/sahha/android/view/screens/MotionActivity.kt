@@ -37,7 +37,7 @@ fun MotionActivity(
                 buttonTitle = "Manually POST Data",
                 bottomSpace = 20.dp
             ) {
-                Sahha.postSensorData(setOf(SahhaSensor.sleep)) { error, success ->
+                Sahha.postSensorData() { error, success ->
                     if (success)
                         mainScope.launch {
                             Toast.makeText(context, "Post successful.", Toast.LENGTH_LONG).show()
