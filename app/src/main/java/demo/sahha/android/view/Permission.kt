@@ -15,7 +15,6 @@ import demo.sahha.android.view.components.SahhaScaffoldWithTopbar
 import demo.sahha.android.view.components.SahhaThemeButton
 import demo.sahha.android.view.ui.theme.rubikFamily
 import sdk.sahha.android.source.Sahha
-import sdk.sahha.android.source.SahhaSensor
 
 private val verticalSpacer = Modifier.size(10.dp)
 
@@ -35,13 +34,13 @@ fun Permission(
         topBarTitle = "Permissions"
     )
     {
-        RowAndColumn (
+        RowAndColumn(
             columnHorizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(verticalSpacer)
             Text("Permission Status", fontFamily = rubikFamily, fontSize = 20.sp)
             Spacer(verticalSpacer)
-            Text("Activity Recognition: $activityRecognitionStatus", fontFamily = rubikFamily)
+            Text(activityRecognitionStatus, fontFamily = rubikFamily)
             Spacer(Modifier.size(20.dp))
             SahhaThemeButton(buttonTitle = "Activity Recognition") {
                 Sahha.enableSensors(context) { _, newStatus ->

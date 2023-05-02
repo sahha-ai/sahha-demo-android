@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="demo.sahha.android">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="demo.sahha.android">
 
     <!-- Permissions -->
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission
-        android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions" />
+            android:name="android.permission.PACKAGE_USAGE_STATS"
+            tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_sahha"
-        android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_sahha"
-        android:supportsRtl="true"
-        android:theme="@style/SahhaexampleandroidTheme">
-        <activity
-            android:name="demo.sahha.android.view.MainActivity"
-            android:exported="true"
+            android:name=".DemoApplication"
+            android:allowBackup="true"
+            android:icon="@drawable/ic_sahha"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/SahhaexampleandroidTheme"
-            android:windowSoftInputMode="adjustResize">
+            android:roundIcon="@drawable/ic_sahha"
+            android:supportsRtl="true"
+            android:theme="@style/SahhaexampleandroidTheme">
+        <activity
+                android:name="demo.sahha.android.view.MainActivity"
+                android:exported="true"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/SahhaexampleandroidTheme"
+                android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
