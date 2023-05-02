@@ -1,6 +1,5 @@
 package demo.sahha.android.view.screens
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -13,11 +12,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import demo.sahha.android.R
+import demo.sahha.android.view.Screen
 import demo.sahha.android.view.components.SahhaThemeButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.launch
-import sdk.sahha.android.domain.worker.post.StepPostWorker
 import sdk.sahha.android.source.Sahha
 
 @Composable

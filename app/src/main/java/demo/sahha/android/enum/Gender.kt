@@ -1,4 +1,4 @@
-package demo.sahha.android.view.enum
+package demo.sahha.android.enum
 
 object Gender {
     val options = listOf(
