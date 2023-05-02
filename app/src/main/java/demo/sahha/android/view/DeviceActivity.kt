@@ -33,7 +33,7 @@ fun DeviceActivity(
         RowAndColumn {
 
             SahhaThemeButton(buttonTitle = "Manually POST Data") {
-                Sahha.postSensorData { error, success ->
+                Sahha.postSensorData() { error, success ->
                     if(success)
                         mainScope.launch {
                             Toast.makeText(context, "Post successful.", Toast.LENGTH_LONG).show()

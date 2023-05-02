@@ -1,11 +1,13 @@
 package demo.sahha.android.view.screens
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import demo.sahha.android.view.components.SahhaLazyRowAndColumn
@@ -15,7 +17,6 @@ import demo.sahha.android.view.ui.theme.rubikFamily
 import sdk.sahha.android.source.Sahha
 import java.time.LocalDateTime
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Analyze(navController: NavController) {
     var analysisResponse by remember { mutableStateOf("") }

@@ -6,13 +6,16 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import demo.sahha.android.R
+import demo.sahha.android.view.profile.Profile
 import demo.sahha.android.view.screens.*
 import demo.sahha.android.view.ui.theme.SahhaexampleandroidTheme
 import sdk.sahha.android.source.Sahha
 import sdk.sahha.android.source.SahhaEnvironment
 import sdk.sahha.android.source.SahhaSettings
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
         Sahha.configure(
             application,
-            SahhaSettings(environment = SahhaEnvironment.development, postSensorDataManually = true)
+            SahhaSettings(environment = SahhaEnvironment.development)
         )
 
         setContent {
@@ -35,7 +38,7 @@ class MainActivity : ComponentActivity() {
                         Home(navController)
                     }
                     composable(Screen.Authenticate.route) {
-                        Authenticate(navController, this@MainActivity)
+                        Authenticate(navController)
                     }
                     composable(Screen.Permission.route) {
                         Permission(navController)

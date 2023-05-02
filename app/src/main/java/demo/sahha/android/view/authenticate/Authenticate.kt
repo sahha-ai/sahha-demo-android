@@ -1,6 +1,5 @@
 package demo.sahha.android.view.screens
 
-import android.content.Context
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,7 +13,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
@@ -24,7 +23,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import demo.sahha.android.view.authenticate.AuthenticateViewModel
 import demo.sahha.android.view.components.RowAndColumn
 import demo.sahha.android.view.components.SahhaThemeButton
 import demo.sahha.android.view.ui.theme.rubikFamily
@@ -32,20 +33,8 @@ import sdk.sahha.android.source.Sahha
 
 private val verticalSpacer = Modifier.size(10.dp)
 
-private const val AUTH_KEY = "sahha.demo.auth"
-private const val TOKEN_KEY = "sahha.demo.auth.token"
-private const val REFRESH_TOKEN_KEY = "sahha.demo.auth.refresh.token"
-
 @Composable
-fun Authenticate(navController: NavController, context: Context) {
-    val sharedPrefs by lazy { context.getSharedPreferences(AUTH_KEY, Context.MODE_PRIVATE) }
-    var token by remember { mutableStateOf(sharedPrefs.getString(TOKEN_KEY, "") ?: "") }
-    var refreshToken by remember {
-        mutableStateOf(
-            sharedPrefs.getString(REFRESH_TOKEN_KEY, "") ?: ""
-        )
-    }
-    var callback by remember { mutableStateOf("") }
+fun Authenticate(navController: NavController, viewModel: AuthenticateViewModel = hiltViewModel()) {
     val localFocusManager = LocalFocusManager.current
 
     Scaffold(
@@ -70,18 +59,15 @@ fun Authenticate(navController: NavController, context: Context) {
                 contentColor = Color.White,
                 elevation = 10.dp,
             )
-        }
+        },
     ) {
         RowAndColumn {
             OutlinedTextField(
-                value = token,
-                onValueChange = {
-                    token = it
-                    sharedPrefs.edit().putString(TOKEN_KEY, it).apply()
-                },
+                value = viewModel.appId.value,
+                onValueChange = { viewModel.appId.value = it },
                 label = {
                     Text(
-                        "Token", fontFamily = rubikFamily,
+                        "App ID", fontFamily = rubikFamily,
                         fontSize = 14.sp
                     )
                 },
@@ -98,14 +84,32 @@ fun Authenticate(navController: NavController, context: Context) {
             )
             Spacer(verticalSpacer)
             OutlinedTextField(
-                value = refreshToken,
-                onValueChange = {
-                    refreshToken = it
-                    sharedPrefs.edit().putString(REFRESH_TOKEN_KEY, it).apply()
-                },
+                value = viewModel.appSecret.value,
+                onValueChange = { viewModel.appSecret.value = it },
                 label = {
                     Text(
-                        "Refresh Token", fontFamily = rubikFamily,
+                        "App Secret", fontFamily = rubikFamily,
+                        fontSize = 14.sp
+                    )
+                },
+                shape = RoundedCornerShape(25),
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    imeAction = ImeAction.Done,
+                    keyboardType = KeyboardType.Text
+                ),
+                keyboardActions = KeyboardActions(onDone = {
+                    localFocusManager.clearFocus()
+                })
+            )
+            Spacer(verticalSpacer)
+            OutlinedTextField(
+                value = viewModel.externalId.value,
+                onValueChange = { viewModel.externalId.value = it },
+                label = {
+                    Text(
+                        "External ID", fontFamily = rubikFamily,
                         fontSize = 14.sp
                     )
                 },
@@ -122,15 +126,19 @@ fun Authenticate(navController: NavController, context: Context) {
             )
             Spacer(Modifier.size(20.dp))
             SahhaThemeButton(buttonTitle = "Authenticate", bottomSpace = 20.dp) {
-                Sahha.authenticate(token, refreshToken) { error, success ->
+                Sahha.authenticate(
+                    viewModel.appId.value,
+                    viewModel.appSecret.value,
+                    viewModel.externalId.value
+                ) { error, success ->
                     if (success)
-                        callback = "Stored successfully."
+                        viewModel.callback.value = "Stored successfully."
                     else
-                        callback = error ?: "Failed to store tokens."
+                        viewModel.callback.value = error ?: "Failed to store tokens."
                 }
             }
             Text(
-                callback,
+                viewModel.callback.value,
                 fontFamily = rubikFamily,
                 fontSize = 14.sp,
                 modifier = Modifier.verticalScroll(
