@@ -34,25 +34,26 @@ class ProfileViewModel @Inject constructor(
     init {
         isLoading.value = true
         Sahha.getDemographic { _, demographic ->
-            demographic?.also {
-                viewModelScope.launch(Dispatchers.IO) {
-                    age.value = it.age.toString()
-                    gender.value = it.gender ?: "Please select"
-                    country.value = it.country ?: ""
-                    birthCountry.value = it.birthCountry ?: ""
-                    ethnicity.value = it.ethnicity ?: ""
-                    occupation.value = it.occupation ?: ""
-                    industry.value = it.industry ?: ""
-                    incomeRange.value = it.incomeRange ?: ""
-                    education.value = it.education ?: ""
-                    relationship.value = it.relationship ?: ""
-                    locale.value = it.locale ?: ""
-                    livingArrangement.value = it.livingArrangement ?: ""
-                    birthDate.value = it.birthDate ?: ""
-
+            if(demographic == null) {
+                isLoading.value = false
+                return@getDemographic
+            }
+                viewModelScope.launch {
+                    age.value = demographic.age.toString()
+                    gender.value = demographic.gender ?: "Please select"
+                    country.value = demographic.country ?: ""
+                    birthCountry.value = demographic.birthCountry ?: ""
+                    ethnicity.value = demographic.ethnicity ?: ""
+                    occupation.value = demographic.occupation ?: ""
+                    industry.value = demographic.industry ?: ""
+                    incomeRange.value = demographic.incomeRange ?: ""
+                    education.value = demographic.education ?: ""
+                    relationship.value = demographic.relationship ?: ""
+                    locale.value = demographic.locale ?: ""
+                    livingArrangement.value = demographic.livingArrangement ?: ""
+                    birthDate.value = demographic.birthDate ?: ""
                     isLoading.value = false
                 }
-            }
         }
     }
 }
