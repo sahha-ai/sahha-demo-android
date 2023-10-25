@@ -42,7 +42,7 @@ fun Permission(
             Spacer(verticalSpacer)
             Text(activityRecognitionStatus, fontFamily = rubikFamily)
             Spacer(Modifier.size(20.dp))
-            SahhaThemeButton(buttonTitle = "Activity Recognition") {
+            SahhaThemeButton(buttonTitle = "Enable Permissions") {
                 Sahha.enableSensors(context) { _, newStatus ->
                     activityRecognitionStatus = newStatus.name
                 }
