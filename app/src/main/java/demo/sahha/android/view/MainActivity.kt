@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
         Sahha.configure(
             application,
-            SahhaSettings(environment = SahhaEnvironment.development)
+            SahhaSettings(environment = SahhaEnvironment.sandbox)
         )
 
         setContent {
