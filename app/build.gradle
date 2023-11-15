@@ -74,5 +74,5 @@ dependencies {
     implementation 'com.squareup:javapoet:1.13.0'
 
     // Sahha sdk
-    implementation 'com.github.sahha-ai:sahha-android:0.15.0'
+    implementation 'com.github.sahha-ai:sahha-android:0.15.1'
 }
