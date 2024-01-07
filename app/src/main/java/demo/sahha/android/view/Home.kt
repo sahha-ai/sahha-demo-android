@@ -20,10 +20,6 @@ import sdk.sahha.android.source.Sahha
 
 @Composable
 fun Home(navController: NavController) {
-    val verticalSpacer = Modifier.size(10.dp)
-    val context = LocalContext.current
-    val mainScope = CoroutineScope(Main)
-
     // A surface container using the 'background' color from the theme
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -55,12 +51,6 @@ fun Home(navController: NavController) {
 
                 SahhaThemeButton(buttonTitle = "Analyze") {
                     navController.navigate(Screen.Analyze.route)
-                }
-
-                SahhaThemeButton(buttonTitle = "Manual Post") {
-                    Sahha.postSensorData { error, success ->
-                        println("postSensorData: $error")
-                    }
                 }
             }
         }
