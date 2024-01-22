@@ -12,7 +12,7 @@
             android:supportsRtl="true"
             android:theme="@style/SahhaexampleandroidTheme">
         <activity
-                android:name="demo.sahha.android.view.MainActivity"
+                android:name="demo.sahha.android.presentation.MainActivity"
                 android:exported="true"
                 android:label="@string/app_name"
                 android:screenOrientation="portrait"
