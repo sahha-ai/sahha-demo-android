@@ -1,8 +1,7 @@
 package demo.sahha.android.view.components
 
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.ScrollableState
-import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
@@ -30,7 +29,9 @@ fun SahhaLazyRowAndColumn(
                     .fillParentMaxSize()
                     .padding(columnPadding),
             ) {
-                item(content = content)
+                item {
+                    content()
+                }
             }
         }
     }
