@@ -52,6 +52,10 @@ fun Home(navController: NavController) {
                 SahhaThemeButton(buttonTitle = "Analyze") {
                     navController.navigate(Screen.Analyze.route)
                 }
+
+                SahhaThemeButton(buttonTitle = "WebView") {
+                    navController.navigate(Screen.WebView.route)
+                }
             }
         }
     }

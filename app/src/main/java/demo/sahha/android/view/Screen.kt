@@ -6,4 +6,5 @@ sealed class Screen(val route: String) {
     object Permission: Screen(route = "permission")
     object Analyze: Screen(route = "analyze")
     object Profile: Screen(route = "profile")
+    object WebView: Screen(route = "web_view")
 }

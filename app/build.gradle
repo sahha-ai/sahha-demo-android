@@ -74,5 +74,8 @@ dependencies {
     implementation 'com.squareup:javapoet:1.13.0'
 
     // Sahha sdk
-    implementation 'com.github.sahha-ai:sahha-android:0.15.3'
+    implementation 'com.github.sahha-ai:sahha-android:0.15.4-local01'
+
+    // Encrypted
+    implementation "androidx.security:security-crypto-ktx:1.1.0-alpha06"
 }

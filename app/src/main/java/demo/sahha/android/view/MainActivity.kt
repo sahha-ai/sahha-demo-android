@@ -1,5 +1,6 @@
 package demo.sahha.android.view
 
+import WebView
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,7 +18,6 @@ import sdk.sahha.android.source.SahhaSettings
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.SahhaexampleandroidTheme)
@@ -48,6 +48,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(Screen.Profile.route) {
                         Profile(navController)
+                    }
+                    composable(Screen.WebView.route) {
+                        WebView(navController)
                     }
                 }
             }

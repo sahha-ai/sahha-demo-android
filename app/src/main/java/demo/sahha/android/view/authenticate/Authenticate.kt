@@ -134,6 +134,8 @@ fun Authenticate(navController: NavController, viewModel: AuthenticateViewModel 
                     viewModel.appSecret.value,
                     viewModel.externalId.value
                 ) { error, success ->
+                    viewModel.cacheAuthData()
+
                     if (success)
                         viewModel.callback.value = "Stored successfully."
                     else

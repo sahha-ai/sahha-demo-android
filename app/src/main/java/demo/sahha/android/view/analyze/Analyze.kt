@@ -20,12 +20,13 @@ import java.time.LocalDateTime
 @Composable
 fun Analyze(navController: NavController) {
     var analysisResponse by remember { mutableStateOf("") }
+
     SahhaScaffoldWithTopbar(navController = navController, topBarTitle = "Analyze") {
         SahhaLazyRowAndColumn {
             SahhaThemeButton(buttonTitle = "Analyze") {
                 Sahha.analyze(
                     dates = Pair(
-                        LocalDateTime.now().minusDays(8),
+                        LocalDateTime.now().minusDays(7),
                         LocalDateTime.now()
                     )
                 ) { error, success ->

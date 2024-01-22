@@ -1,6 +1,5 @@
 package demo.sahha.android.view.profile
 
-import android.widget.Toast
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,8 +25,6 @@ import demo.sahha.android.view.components.SahhaLazyRowAndColumn
 import demo.sahha.android.view.components.SahhaScaffoldWithTopbar
 import demo.sahha.android.view.components.SahhaTextField
 import demo.sahha.android.view.components.SahhaThemeButton
-import kotlinx.coroutines.launch
-import sdk.sahha.android.source.Sahha
 import sdk.sahha.android.source.SahhaDemographic
 
 private const val countryCharLimit = 2
@@ -262,7 +259,8 @@ fun Profile(
                 }
 
                 SahhaThemeButton(buttonTitle = "POST Profile") {
-                    Sahha.postDemographic(
+                    viewModel.postDemographic(
+                        context,
                         SahhaDemographic(
                             viewModel.age.value.ifEmpty { null }?.toInt(),
                             viewModel.gender.value.takeIf { it != "Please select" },
@@ -278,14 +276,7 @@ fun Profile(
                             viewModel.livingArrangement.value.ifEmpty { null },
                             viewModel.birthDate.value.ifEmpty { null }
                         )
-                    ) { error, success ->
-                        viewModel.mainScope.launch {
-                            Toast.makeText(
-                                context,
-                                if (success) "Successful" else error, Toast.LENGTH_LONG
-                            ).show()
-                        }
-                    }
+                    )
                 }
             }
         }
