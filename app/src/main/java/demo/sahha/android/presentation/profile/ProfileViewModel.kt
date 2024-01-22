@@ -6,7 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import demo.sahha.android.domain.interaction.ProfileInteractor
+import demo.sahha.android.domain.interactor.ProfileInteractor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import sdk.sahha.android.source.SahhaDemographic
@@ -16,7 +16,7 @@ import javax.inject.Named
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     @Named("mainScope") private val mainScope: CoroutineScope,
-    private val profileInteractor: ProfileInteractor
+    private val interactor: ProfileInteractor
 ) : ViewModel() {
     var isLoading = mutableStateOf(false)
 
@@ -37,14 +37,14 @@ class ProfileViewModel @Inject constructor(
     init {
         isLoading.value = true
         viewModelScope.launch {
-            val demographic = profileInteractor.getDemographic()
+            val demographic = interactor.getDemographic()
 
             if (demographic == null) {
                 isLoading.value = false
                 return@launch
             }
 
-            profileInteractor.cacheDemographic(demographic)
+            interactor.cacheDemographic(demographic)
 
             age.value = demographic.age.toString()
             gender.value = demographic.gender ?: "Please select"
@@ -65,10 +65,25 @@ class ProfileViewModel @Inject constructor(
 
     fun postDemographic(
         context: Context,
-        demographic: SahhaDemographic
     ) {
+        val demographic = SahhaDemographic(
+            age.value.ifEmpty { null }?.toInt(),
+            gender.value.takeIf { it != "Please select" },
+            country.value.ifEmpty { null },
+            birthCountry.value.ifEmpty { null },
+            ethnicity.value.ifEmpty { null },
+            occupation.value.ifEmpty { null },
+            industry.value.ifEmpty { null },
+            incomeRange.value.ifEmpty { null },
+            education.value.ifEmpty { null },
+            relationship.value.ifEmpty { null },
+            locale.value.ifEmpty { null },
+            livingArrangement.value.ifEmpty { null },
+            birthDate.value.ifEmpty { null }
+        )
+
         mainScope.launch {
-            val result = profileInteractor.postDemographic(demographic)
+            val result = interactor.postDemographic(demographic)
             Toast.makeText(
                 context,
                 if (result.second) "Successfully sent" else result.first, Toast.LENGTH_LONG

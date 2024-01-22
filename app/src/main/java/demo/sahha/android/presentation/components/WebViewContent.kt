@@ -18,7 +18,6 @@ import androidx.compose.material.icons.rounded.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
@@ -30,7 +29,9 @@ fun WebViewContent(url: String, onDismiss: () -> Unit) {
         modifier = Modifier.background(color = MaterialTheme.colors.primary)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(start = 20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -65,7 +66,9 @@ fun WebViewContent(url: String, onDismiss: () -> Unit) {
                     loadUrl(url)
                 }
             },
-            update = { it.loadUrl(url) }
+            update = {
+                it.loadUrl(url)
+            }
         )
     }
 }

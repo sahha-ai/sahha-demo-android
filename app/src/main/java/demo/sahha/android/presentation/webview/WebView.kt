@@ -84,7 +84,9 @@ fun WebView(
             RowAndColumn {
                 OutlinedTextField(
                     value = viewModel.url.value,
-                    onValueChange = { viewModel.url.value = it },
+                    onValueChange = {
+                        viewModel.url.value = it
+                    },
                     label = {
                         Text(
                             "URL", fontFamily = rubikFamily,

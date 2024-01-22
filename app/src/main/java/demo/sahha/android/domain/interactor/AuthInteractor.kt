@@ -1,4 +1,4 @@
-package demo.sahha.android.domain.interaction
+package demo.sahha.android.domain.interactor
 
 import demo.sahha.android.domain.repo.AuthRepo
 import javax.inject.Inject

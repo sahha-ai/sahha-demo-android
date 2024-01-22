@@ -1,12 +1,16 @@
+@file:OptIn(ExperimentalMaterialApi::class)
+
 package demo.sahha.android.presentation.screens
 
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -15,13 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import demo.sahha.android.presentation.Screen
 import demo.sahha.android.presentation.analyze.AnalyzeViewModel
 import demo.sahha.android.presentation.components.SahhaLazyRowAndColumn
 import demo.sahha.android.presentation.components.SahhaScaffoldWithTopbar
 import demo.sahha.android.presentation.components.SahhaThemeButton
 import demo.sahha.android.presentation.ui.theme.rubikFamily
-import sdk.sahha.android.source.Sahha
-import java.time.LocalDateTime
 
 @Composable
 fun Analyze(
@@ -31,22 +34,7 @@ fun Analyze(
     SahhaScaffoldWithTopbar(navController = navController, topBarTitle = "Analyze") {
         Column(modifier = Modifier.padding(20.dp)) {
             SahhaThemeButton(buttonTitle = "Analyze") {
-                viewModel.isLoading.value = true
-                Sahha.analyze(
-                    dates = Pair(
-                        LocalDateTime.now().minusDays(7),
-                        LocalDateTime.now()
-                    )
-                ) { error, success ->
-                    viewModel.isLoading.value = false
-
-                    error?.also {
-                        viewModel.analysisResponse.value = it
-                    }
-                    success?.also {
-                        viewModel.analysisResponse.value = it
-                    }
-                }
+                viewModel.analyze()
             }
             if (viewModel.isLoading.value) {
                 Box(
@@ -60,13 +48,32 @@ fun Analyze(
                 }
             } else {
                 SahhaLazyRowAndColumn {
-                    Text(
-                        viewModel.analysisResponse.value,
-                        fontFamily = rubikFamily,
-                        modifier = Modifier.horizontalScroll(
-                            rememberScrollState()
-                        )
-                    )
+                    LazyColumn {
+                        viewModel.analysisResponse.value?.also {
+                            items(it) {
+                                Card(
+                                    onClick = {
+                                        navController.navigate("${Screen.Analyze.route}/${it.id}")
+                                    }
+                                ) {
+                                    Column {
+                                        Text(
+                                            it.type,
+                                            fontFamily = rubikFamily,
+                                        )
+                                        Text(
+                                            it.state,
+                                            fontFamily = rubikFamily,
+                                        )
+                                        Text(
+                                            it.score.toString(),
+                                            fontFamily = rubikFamily,
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

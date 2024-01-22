@@ -9,8 +9,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import demo.sahha.android.data.repo.AnalyzeRepoImpl
 import demo.sahha.android.data.repo.AuthRepoImpl
 import demo.sahha.android.data.repo.ProfileRepoImpl
+import demo.sahha.android.domain.repo.AnalyzeRepo
 import demo.sahha.android.domain.repo.AuthRepo
 import demo.sahha.android.domain.repo.ProfileRepo
 import kotlinx.coroutines.CoroutineScope
@@ -48,6 +50,14 @@ object AppModule {
         sharedPreferences: SharedPreferences
     ): AuthRepo {
         return AuthRepoImpl(sharedPreferences)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAnalyzeRepo(
+
+    ): AnalyzeRepo {
+        return AnalyzeRepoImpl()
     }
 
     @Provides

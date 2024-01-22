@@ -2,6 +2,7 @@ package demo.sahha.android.presentation.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
@@ -20,9 +21,9 @@ fun SahhaThemeButton(
     Button(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(25)
+        shape = RoundedCornerShape(25),
     ) {
-        Text(buttonTitle, fontFamily = rubikFamily)
+        Text(buttonTitle, fontFamily = rubikFamily, modifier = Modifier.padding(vertical = 10.dp))
     }
     Spacer(Modifier.size(bottomSpace))
 }
