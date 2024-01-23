@@ -259,24 +259,7 @@ fun Profile(
                 }
 
                 SahhaThemeButton(buttonTitle = "POST Profile") {
-                    viewModel.postDemographic(
-                        context,
-                        SahhaDemographic(
-                            viewModel.age.value.ifEmpty { null }?.toInt(),
-                            viewModel.gender.value.takeIf { it != "Please select" },
-                            viewModel.country.value.ifEmpty { null },
-                            viewModel.birthCountry.value.ifEmpty { null },
-                            viewModel.ethnicity.value.ifEmpty { null },
-                            viewModel.occupation.value.ifEmpty { null },
-                            viewModel.industry.value.ifEmpty { null },
-                            viewModel.incomeRange.value.ifEmpty { null },
-                            viewModel.education.value.ifEmpty { null },
-                            viewModel.relationship.value.ifEmpty { null },
-                            viewModel.locale.value.ifEmpty { null },
-                            viewModel.livingArrangement.value.ifEmpty { null },
-                            viewModel.birthDate.value.ifEmpty { null }
-                        )
-                    )
+                    viewModel.postDemographic(context)
                 }
             }
         }

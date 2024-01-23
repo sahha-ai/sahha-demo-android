@@ -3,12 +3,12 @@ package demo.sahha.android.presentation.authenticate
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import demo.sahha.android.domain.interaction.AuthInteractor
+import demo.sahha.android.domain.interactor.AuthInteractor
 import javax.inject.Inject
 
 @HiltViewModel
 class AuthenticateViewModel @Inject constructor(
-    private val authInteractor: AuthInteractor
+    private val interactor: AuthInteractor
 ) : ViewModel() {
     val appId = mutableStateOf("")
     val appSecret = mutableStateOf("")
@@ -20,12 +20,12 @@ class AuthenticateViewModel @Inject constructor(
     }
 
     private fun displayLastUsedAuthData() {
-        appId.value = authInteractor.getAppId()
-        appSecret.value = authInteractor.getAppSecret()
-        externalId.value = authInteractor.getExternalId()
+        appId.value = interactor.getAppId()
+        appSecret.value = interactor.getAppSecret()
+        externalId.value = interactor.getExternalId()
     }
      fun cacheAuthData() {
-         authInteractor.saveAuthData(
+         interactor.saveAuthData(
              appId = appId.value,
              appSecret = appSecret.value,
              externalId = externalId.value

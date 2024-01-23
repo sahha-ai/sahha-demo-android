@@ -9,10 +9,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import demo.sahha.android.data.repo.AnalyzeRepoImpl
 import demo.sahha.android.data.repo.AuthRepoImpl
 import demo.sahha.android.data.repo.ProfileRepoImpl
+import demo.sahha.android.data.repo.WebViewRepoImpl
+import demo.sahha.android.domain.repo.AnalyzeRepo
 import demo.sahha.android.domain.repo.AuthRepo
 import demo.sahha.android.domain.repo.ProfileRepo
+import demo.sahha.android.domain.repo.WebViewRepo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Named
@@ -52,8 +56,24 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideAnalyzeRepo(
+
+    ): AnalyzeRepo {
+        return AnalyzeRepoImpl()
+    }
+
+    @Provides
+    @Singleton
     fun provideProfileRepo(): ProfileRepo {
         return ProfileRepoImpl()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWebViewRepo(
+        sharedPreferences: SharedPreferences
+    ): WebViewRepo {
+        return WebViewRepoImpl(sharedPreferences)
     }
 
     @Provides

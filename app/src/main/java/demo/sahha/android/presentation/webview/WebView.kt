@@ -84,7 +84,9 @@ fun WebView(
             RowAndColumn {
                 OutlinedTextField(
                     value = viewModel.url.value,
-                    onValueChange = { viewModel.url.value = it },
+                    onValueChange = {
+                        viewModel.url.value = it
+                    },
                     label = {
                         Text(
                             "URL", fontFamily = rubikFamily,
@@ -104,6 +106,7 @@ fun WebView(
                 )
                 Spacer(verticalSpacer)
                 SahhaThemeButton(buttonTitle = "Launch", bottomSpace = 20.dp) {
+                    viewModel.cacheUrl()
                     viewModel.showWebView.value = true
                 }
             }

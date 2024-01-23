@@ -21,7 +21,7 @@ fun SahhaThemeButton(
     Button(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(25)
+        shape = RoundedCornerShape(25),
     ) {
         Text(buttonTitle, fontFamily = rubikFamily, modifier = Modifier.padding(vertical = 10.dp))
     }

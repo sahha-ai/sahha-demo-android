@@ -8,6 +8,8 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import demo.sahha.android.presentation.ui.theme.rubikFamily
@@ -24,7 +26,7 @@ fun SahhaScaffoldWithTopbar(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = topBarTitle, fontFamily = rubikFamily)
+                    Text(text = topBarTitle, fontFamily = rubikFamily, maxLines = 1, overflow = TextOverflow.Ellipsis)
                 },
                 navigationIcon = {
                     IconButton(onClick = {

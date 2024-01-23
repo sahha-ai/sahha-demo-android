@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import demo.sahha.android.R
+import demo.sahha.android.presentation.analysis.AnalysisDetail
 import demo.sahha.android.presentation.profile.Profile
 import demo.sahha.android.presentation.screens.*
 import demo.sahha.android.presentation.ui.theme.SahhaexampleandroidTheme
@@ -45,6 +46,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(Screen.Analyze.route) {
                         Analyze(navController)
+                    }
+                    composable(Screen.Analyze.route + "/{id}") {
+                        AnalysisDetail(navController)
                     }
                     composable(Screen.Profile.route) {
                         Profile(navController)
