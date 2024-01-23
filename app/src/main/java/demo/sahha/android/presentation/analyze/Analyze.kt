@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterialApi::class)
-
 package demo.sahha.android.presentation.screens
 
 import androidx.compose.foundation.layout.Box
@@ -8,11 +6,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,10 +17,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import demo.sahha.android.presentation.Screen
 import demo.sahha.android.presentation.analyze.AnalyzeViewModel
+import demo.sahha.android.presentation.analyze.components.AnalyzeItem
 import demo.sahha.android.presentation.components.SahhaLazyRowAndColumn
 import demo.sahha.android.presentation.components.SahhaScaffoldWithTopbar
 import demo.sahha.android.presentation.components.SahhaThemeButton
-import demo.sahha.android.presentation.ui.theme.rubikFamily
 
 @Composable
 fun Analyze(
@@ -47,29 +43,19 @@ fun Analyze(
                     )
                 }
             } else {
-                SahhaLazyRowAndColumn {
-                    LazyColumn {
+                SahhaLazyRowAndColumn(columnPadding = 0.dp) {
+                    LazyColumn(
+                        horizontalAlignment = Alignment.Start,
+                        modifier = Modifier
+                            .fillParentMaxSize()
+                    ) {
                         viewModel.analysisResponse.value?.also {
-                            items(it) {
-                                Card(
-                                    onClick = {
-                                        navController.navigate("${Screen.Analyze.route}/${it.id}")
-                                    }
+                            items(it.sortedByDescending { it.createdAt }) { analysis ->
+                                val formattedTime = viewModel.formatTime(analysis.createdAt)
+                                AnalyzeItem(
+                                    analysis, formattedTime
                                 ) {
-                                    Column {
-                                        Text(
-                                            it.type,
-                                            fontFamily = rubikFamily,
-                                        )
-                                        Text(
-                                            it.state,
-                                            fontFamily = rubikFamily,
-                                        )
-                                        Text(
-                                            it.score.toString(),
-                                            fontFamily = rubikFamily,
-                                        )
-                                    }
+                                    navController.navigate("${Screen.Analyze.route}/${analysis.id}")
                                 }
                             }
                         }

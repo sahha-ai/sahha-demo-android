@@ -106,6 +106,7 @@ fun WebView(
                 )
                 Spacer(verticalSpacer)
                 SahhaThemeButton(buttonTitle = "Launch", bottomSpace = 20.dp) {
+                    viewModel.cacheUrl()
                     viewModel.showWebView.value = true
                 }
             }
