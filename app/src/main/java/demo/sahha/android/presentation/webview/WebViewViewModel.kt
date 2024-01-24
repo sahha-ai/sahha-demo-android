@@ -13,7 +13,7 @@ class WebViewViewModel @Inject constructor(
     private val authInteractor: AuthInteractor
 ) : ViewModel() {
     var isLoading = mutableStateOf(false)
-    var url = mutableStateOf(webViewInteractor.getUrl() ?: "https://docs.sahha.ai")
+    var url = mutableStateOf(webViewInteractor.getUrl() ?: "https://development-webview.netlify.app/insights")
     var showWebView = mutableStateOf(false)
 
     fun cacheUrl() {

@@ -2,6 +2,7 @@ package demo.sahha.android.presentation.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +16,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
@@ -128,27 +130,28 @@ fun Authenticate(navController: NavController, viewModel: AuthenticateViewModel 
             )
             Spacer(Modifier.size(20.dp))
             SahhaThemeButton(buttonTitle = "Authenticate", bottomSpace = 20.dp) {
-                Sahha.authenticate(
-                    viewModel.appId.value,
-                    viewModel.appSecret.value,
-                    viewModel.externalId.value
-                ) { error, success ->
-                    viewModel.cacheAuthData()
-
-                    if (success)
-                        viewModel.callback.value = "Stored successfully."
-                    else
-                        viewModel.callback.value = error ?: "Failed to store tokens."
-                }
+                viewModel.authenticate()
             }
-            Text(
-                viewModel.callback.value,
-                fontFamily = rubikFamily,
-                fontSize = 14.sp,
-                modifier = Modifier.verticalScroll(
-                    rememberScrollState()
+            if(viewModel.isLoading.value) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        strokeWidth = 4.dp,
+                        color = MaterialTheme.colors.primary
+                    )
+                }
+            } else {
+                Text(
+                    viewModel.callback.value,
+                    fontFamily = rubikFamily,
+                    fontSize = 14.sp,
+                    modifier = Modifier.verticalScroll(
+                        rememberScrollState()
+                    )
                 )
-            )
+            }
         }
     }
 }
