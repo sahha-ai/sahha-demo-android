@@ -10,11 +10,11 @@ Until the new `Sahha.getToken()` is implemented, the profile token will have to 
 
 1. Create a new `secrets.properties` file with the exact filename under `app/`
 
-[//]: # (![step 1]&#40;setup/step1.png "Step 1"&#41;)
+![step 1](setup/step1.png "Step 1")
 
 2. Fill in the `PROFILE_TOKEN` with your profile token
 
-[//]: # (![step 2]&#40;setup/step2.png "Step 2"&#41;)
+![step 2](setup/step2.png "Step 2")
 
 Then you should be all good to go :thumbsup:
 
