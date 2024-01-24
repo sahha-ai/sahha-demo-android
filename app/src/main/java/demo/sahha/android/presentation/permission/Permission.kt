@@ -25,7 +25,6 @@ fun Permission(
     viewModel: PermissionViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-
     viewModel.getSensorStatus(context)
 
     SahhaScaffoldWithTopbar(

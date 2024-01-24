@@ -14,13 +14,21 @@ class PermissionViewModel @Inject constructor(
 
     fun getSensorStatus(context: Context) {
         Sahha.getSensorStatus(context) { _, newStatus ->
-            activityRecognitionStatus.value = newStatus.name
+            try {
+                activityRecognitionStatus.value = newStatus.name
+            } catch (e: Exception) {
+                println(e.message)
+            }
         }
     }
 
     fun enableSensors(context: Context) {
         Sahha.enableSensors(context) { _, newStatus ->
-            activityRecognitionStatus.value = newStatus.name
+            try {
+                activityRecognitionStatus.value = newStatus.name
+            } catch (e: Exception) {
+                println(e.message)
+            }
         }
     }
 
