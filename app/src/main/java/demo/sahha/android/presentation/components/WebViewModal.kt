@@ -12,7 +12,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.DialogWindowProvider
 
 @Composable
-fun WebViewModal(url: String, onDismiss: () -> Unit) {
+fun WebViewModal(httpHeader: Map<String, String>? = null, url: String, onDismiss: () -> Unit) {
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(
@@ -28,7 +28,7 @@ fun WebViewModal(url: String, onDismiss: () -> Unit) {
                 .fillMaxHeight(0.9f),
             shape = RoundedCornerShape(topStartPercent = 8, topEndPercent = 8)
         ) {
-            WebViewContent(url = url, onDismiss = onDismiss)
+            WebViewContent(httpHeader = httpHeader, url = url, onDismiss = onDismiss)
         }
     }
 }

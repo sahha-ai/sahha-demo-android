@@ -1,8 +1,11 @@
 package demo.sahha.android.data.repo
 
 import android.content.SharedPreferences
+import demo.sahha.android.BuildConfig
 import demo.sahha.android.domain.repo.AuthRepo
+import sdk.sahha.android.source.Sahha
 import javax.inject.Inject
+import kotlin.coroutines.suspendCoroutine
 
 private const val app_id: String = "app_id"
 private const val app_secret: String = "app_secret"
@@ -37,5 +40,9 @@ class AuthRepoImpl @Inject constructor(
 
     override fun getExternalId(): String? {
         return sharedPreferences.getString(external_id, null)
+    }
+
+    override fun getToken(): String? {
+         return BuildConfig.PROFILE_TOKEN
     }
 }

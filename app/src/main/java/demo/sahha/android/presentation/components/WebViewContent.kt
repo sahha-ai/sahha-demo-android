@@ -24,7 +24,7 @@ import androidx.compose.ui.zIndex
 import demo.sahha.android.presentation.ui.theme.rubikFamily
 
 @Composable
-fun WebViewContent(url: String, onDismiss: () -> Unit) {
+fun WebViewContent(httpHeader: Map<String, String>? = null, url: String, onDismiss: () -> Unit) {
     Column(
         modifier = Modifier.background(color = MaterialTheme.colors.primary)
     ) {
@@ -63,12 +63,12 @@ fun WebViewContent(url: String, onDismiss: () -> Unit) {
                     webViewClient = WebViewClient()
                     settings.javaScriptEnabled = true
                     settings.domStorageEnabled = true
-                    loadUrl(url)
+                    httpHeader?.also { loadUrl(url, it) } ?: loadUrl(url)
                 }
             },
-            update = {
-                it.loadUrl(url)
-            }
+//            update = { webView ->
+//                httpHeader?.also { webView.loadUrl(url, it) } ?: webView.loadUrl(url)
+//            }
         )
     }
 }

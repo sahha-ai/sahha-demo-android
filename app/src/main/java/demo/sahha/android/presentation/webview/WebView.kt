@@ -112,7 +112,14 @@ fun WebView(
             }
 
             if (viewModel.showWebView.value)
-                WebViewModal(url = viewModel.url.value) {
+                WebViewModal(
+                    httpHeader = mapOf(
+                        Pair(
+                            "Authorization",
+                            "Profile ${viewModel.getToken()}"
+                        )
+                    ), url = viewModel.url.value
+                ) {
                     viewModel.showWebView.value = false
                 }
         }

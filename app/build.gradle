@@ -5,6 +5,10 @@ plugins {
     id 'com.google.dagger.hilt.android'
 }
 
+def secretsPropertiesFile = rootProject.file("app/secrets.properties")
+def secretsProperties = new Properties()
+secretsProperties.load(new FileInputStream(secretsPropertiesFile))
+
 android {
     compileSdk 34
 
@@ -14,6 +18,8 @@ android {
         targetSdk 34
         versionCode 3
         versionName "1.2.0"
+
+        buildConfigField("String", "PROFILE_TOKEN", secretsProperties['PROFILE_TOKEN'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
