@@ -12,7 +12,7 @@ Until the new `Sahha.getToken()` is implemented, the profile token will have to 
 
 ![step 1](setup/step1.png "Step 1")
 
-2. Fill in the `PROFILE_TOKEN` with your profile token
+2. Add a new `PROFILE_TOKEN` variable (no need to prepend with `var`) with your profile token in quotation marks
 
 ![step 2](setup/step2.png "Step 2")
 
