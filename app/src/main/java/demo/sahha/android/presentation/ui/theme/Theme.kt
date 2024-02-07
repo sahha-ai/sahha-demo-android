@@ -9,18 +9,20 @@ import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
     primary = SahhaDarkest,
+    onPrimary = Color.White,
     primaryVariant = SahhaGray,
     secondary = SahhaLightGray,
     background = SahhaDark,
-    onPrimary = Color.White
+    onBackground = Color.White
 )
 
 private val LightColorPalette = lightColors(
     primary = SahhaDarkest,
+    onPrimary = Color.White,
     primaryVariant = SahhaDark,
     secondary = SahhaLightGray,
     background = Color.White,
-    onPrimary = Color.White
+    onBackground = Color.Black
 
     /* Other default colors to override
     background = Color.White,
@@ -44,7 +46,8 @@ fun SahhaexampleandroidTheme(
     }
 
     MaterialTheme(
-        colors = colors,
+//        colors = colors,
+        colors = DarkColorPalette,
         typography = Typography,
         shapes = Shapes,
         content = content

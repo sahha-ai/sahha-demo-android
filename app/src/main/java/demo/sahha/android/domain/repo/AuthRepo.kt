@@ -11,4 +11,5 @@ interface AuthRepo {
     fun getAppSecret(): String?
     fun getExternalId(): String?
     fun getToken(): String?
+    fun saveToken(token: String)
 }

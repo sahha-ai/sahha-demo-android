@@ -1,6 +1,8 @@
 package demo.sahha.android.presentation.screens
 
+import LoadingCircle
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -133,15 +135,7 @@ fun Authenticate(navController: NavController, viewModel: AuthenticateViewModel 
                 viewModel.authenticate()
             }
             if(viewModel.isLoading.value) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(
-                        strokeWidth = 4.dp,
-                        color = MaterialTheme.colors.primary
-                    )
-                }
+                LoadingCircle()
             } else {
                 Text(
                     viewModel.callback.value,

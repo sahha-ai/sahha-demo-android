@@ -1,5 +1,6 @@
 package demo.sahha.android.presentation.screens
 
+import LoadingCircle
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,15 +34,7 @@ fun Analyze(
                 viewModel.analyze()
             }
             if (viewModel.isLoading.value) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(
-                        strokeWidth = 4.dp,
-                        color = MaterialTheme.colors.primary
-                    )
-                }
+                LoadingCircle()
             } else {
                 SahhaLazyRowAndColumn(columnPadding = 0.dp) {
                     LazyColumn(
