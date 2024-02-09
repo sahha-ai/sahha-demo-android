@@ -10,29 +10,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WebViewViewModel @Inject constructor(
-    private val webViewInteractor: WebViewInteractor,
     private val authInteractor: AuthInteractor
 ) : ViewModel() {
     val isLoading = mutableStateOf(false)
-    val url = mutableStateOf(webViewInteractor.getUrl() ?: "https://development-webview.netlify.app/insights")
-    val showWebView = mutableStateOf(false)
-    val authHeaderChecked = mutableStateOf(false)
-    val authHeaderText = mutableStateOf("Profile ")
-
-    init {
-        authHeaderChecked.value = DemoCache.addTokenChecked
-        authHeaderText.value = authInteractor.getToken() ?: "Profile "
-    }
-
-    fun cacheUrl() {
-        webViewInteractor.saveUrl(url.value)
-    }
+    val url = mutableStateOf( "https://development-webview.netlify.app/insights")
 
     fun getToken(): String? {
         return authInteractor.getToken()
-    }
-
-    fun cacheToken(token: String) {
-        authInteractor.saveToken(token)
     }
 }

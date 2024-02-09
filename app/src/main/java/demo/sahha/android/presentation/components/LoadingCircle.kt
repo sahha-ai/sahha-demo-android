@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 fun LoadingCircle(
     alignment: Alignment = Alignment.Center,
     strokeWidth: Dp = 4.dp,
-    loadingCircleColor: Color = MaterialTheme.colors.primary,
+    loadingCircleColor: Color = MaterialTheme.colors.onBackground,
     backgroundColor: Color = MaterialTheme.colors.background,
 ) {
     Box(

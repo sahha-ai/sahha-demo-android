@@ -46,8 +46,8 @@ fun SahhaexampleandroidTheme(
     }
 
     MaterialTheme(
-//        colors = colors,
-        colors = DarkColorPalette,
+        colors = colors,
+//        colors = DarkColorPalette,
         typography = Typography,
         shapes = Shapes,
         content = content
