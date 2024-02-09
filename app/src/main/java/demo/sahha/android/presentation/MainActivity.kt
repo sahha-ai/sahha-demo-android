@@ -34,14 +34,6 @@ class MainActivity : ComponentActivity() {
             application,
             SahhaSettings(
                 environment = SahhaEnvironment.sandbox,
-                sensors = setOf(
-                    SahhaSensor.activity,
-                    SahhaSensor.sleep,
-                    SahhaSensor.heart,
-                    SahhaSensor.energy,
-                    SahhaSensor.oxygen,
-                    SahhaSensor.device
-                )
             )
         )
 
