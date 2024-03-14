@@ -26,7 +26,11 @@ class AuthInteractor @Inject constructor(
         return authRepo.getExternalId() ?: ""
     }
 
-    fun getToken(): String {
-        return authRepo.getToken() ?: ""
+    fun getToken(): String? {
+        return authRepo.getToken()
+    }
+
+    fun saveToken(token: String) {
+        authRepo.saveToken(token)
     }
 }

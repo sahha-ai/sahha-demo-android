@@ -6,4 +6,6 @@ import sdk.sahha.android.source.SahhaDemographic
 object DemoCache {
     var demographic: SahhaDemographic? = null
     var analysis: List<SahhaAnalysisDto>? = null
+
+    var addTokenChecked: Boolean = false
 }
