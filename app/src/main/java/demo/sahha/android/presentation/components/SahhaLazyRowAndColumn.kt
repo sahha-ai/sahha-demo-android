@@ -15,7 +15,7 @@ fun SahhaLazyRowAndColumn(
     rowVerticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
     columnHorizontalAlignment: Alignment.Horizontal = Alignment.Start,
     columnPadding: Dp = 20.dp,
-    modifier: Modifier? = null,
+    modifier: Modifier = Modifier,
     content: @Composable LazyItemScope.() -> Unit
 ) {
     LazyRow(
