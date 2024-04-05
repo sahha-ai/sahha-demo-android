@@ -13,7 +13,7 @@ class WebViewViewModel @Inject constructor(
     private val authInteractor: AuthInteractor
 ) : ViewModel() {
     val isLoading = mutableStateOf(false)
-    val url = mutableStateOf( "https://development-webview.netlify.app/insights")
+    val url = mutableStateOf( "https://development-webview.netlify.app/app")
 
     fun getToken(): String? {
         return authInteractor.getToken()

@@ -48,6 +48,6 @@ class AuthRepoImpl @Inject constructor(
     }
 
     override fun getToken(): String? {
-         return sharedPreferences.getString(profile_token, null)
+         return Sahha.profileToken
     }
 }

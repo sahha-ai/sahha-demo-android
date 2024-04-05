@@ -1,6 +1,8 @@
 import android.annotation.SuppressLint
+import android.webkit.WebView
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -46,11 +48,29 @@ fun WebView(
             topBar = {
                 TopAppBar(
                     title = {
-                        Text(text = "WebView", fontFamily = rubikFamily)
+                        Text(text = "My Health", fontFamily = rubikFamily)
                     },
                     navigationIcon = {
                         IconButton(onClick = { navController.popBackStack() }) {
                             Icon(Icons.Filled.ArrowBack, "backIcon")
+                        }
+                    },
+                    actions = {
+                        IconButton(
+                            onClick = {
+                                viewModel.url.value = "https://development-webview.netlify.app/"
+                            },
+                            modifier = Modifier.padding(10.dp)
+                        ) {
+                            Text(text = "Graphs", fontFamily = rubikFamily)
+                        }
+                        IconButton(
+                            onClick = {
+                                viewModel.url.value = "https://development-webview.netlify.app/app"
+                            },
+                            modifier = Modifier.padding(10.dp)
+                        ) {
+                            Text(text = "Scores", fontFamily = rubikFamily)
                         }
                     },
                     backgroundColor = MaterialTheme.colors.primary,
@@ -63,7 +83,12 @@ fun WebView(
                 httpHeader = viewModel.getToken()?.let { token ->
                     mapOf(Pair("Authorization", "Profile $token"))
                 }, url = viewModel.url.value
-            )
+            ) { view ->
+                val webView = (view as WebView)
+                webView.loadUrl(viewModel.url.value, viewModel.getToken()?.let { token ->
+                    mapOf(Pair("Authorization", "Profile $token"))
+                } ?: mapOf())
+            }
         }
     }
 }

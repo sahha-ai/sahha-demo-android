@@ -1,5 +1,8 @@
 package demo.sahha.android.presentation.screens
 
+import android.view.ViewGroup
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -7,8 +10,10 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
 import demo.sahha.android.R
 import demo.sahha.android.presentation.Screen
@@ -49,7 +54,7 @@ fun Home(navController: NavController) {
                     navController.navigate(Screen.Analyze.route)
                 }
 
-                SahhaThemeButton(buttonTitle = "WebView") {
+                SahhaThemeButton(buttonTitle = "My Health") {
                     navController.navigate(Screen.WebView.route)
                 }
             }
