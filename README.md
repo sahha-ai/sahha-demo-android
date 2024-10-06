@@ -4,22 +4,6 @@ The Sahha Demo App provides a convenient way to try the features of the Sahha AP
 
 ---
 
-## Setup (WebView branch only)
-
-Until the new `Sahha.getToken()` is implemented, the profile token will have to manually be added in.
-
-1. Create a new `secrets.properties` file with the exact filename under `app/`
-
-![step 1](setup/step1.png "Step 1")
-
-2. Add a new `PROFILE_TOKEN` variable (no need to prepend with `var`) with your profile token in quotation marks
-
-![step 2](setup/step2.png "Step 2")
-
-Then you should be all good to go :thumbsup:
-
----
-
 ## API
 
 The Sahha API provides a convenient way to analyze health patterns.
