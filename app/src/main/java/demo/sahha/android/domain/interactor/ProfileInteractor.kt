@@ -15,7 +15,8 @@ class ProfileInteractor @Inject constructor(
     private val profileRepo: ProfileRepo
 ) {
     suspend fun getDemographic(): SahhaDemographic? {
-        return DemoCache.demographic ?: profileRepo.getDemographic()
+//        return DemoCache.demographic ?: profileRepo.getDemographic()
+        return profileRepo.getDemographic()
     }
 
     suspend fun postDemographic(demographic: SahhaDemographic): Pair<String?, Boolean> =

@@ -3,7 +3,6 @@ import android.webkit.WebView
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -23,8 +22,6 @@ import androidx.navigation.NavController
 import demo.sahha.android.presentation.components.WebViewModal
 import demo.sahha.android.presentation.ui.theme.rubikFamily
 import demo.sahha.android.presentation.webview.WebViewViewModel
-
-private val verticalSpacer = Modifier.size(10.dp)
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -58,15 +55,7 @@ fun WebView(
                     actions = {
                         IconButton(
                             onClick = {
-                                viewModel.url.value = "https://development-webview.netlify.app/"
-                            },
-                            modifier = Modifier.padding(10.dp)
-                        ) {
-                            Text(text = "Graphs", fontFamily = rubikFamily)
-                        }
-                        IconButton(
-                            onClick = {
-                                viewModel.url.value = "https://development-webview.netlify.app/app"
+                                viewModel.url.value = "https://development.webview.sahha.ai/app"
                             },
                             modifier = Modifier.padding(10.dp)
                         ) {
@@ -79,15 +68,16 @@ fun WebView(
                 )
             },
         ) {
+            val httpHeader = viewModel.getToken()?.let { token ->
+                mapOf(Pair("Authorization", "Profile $token"))
+            }
             WebViewModal(
-                httpHeader = viewModel.getToken()?.let { token ->
-                    mapOf(Pair("Authorization", "Profile $token"))
-                }, url = viewModel.url.value
+                httpHeader = httpHeader, url = viewModel.url.value
             ) { view ->
                 val webView = (view as WebView)
-                webView.loadUrl(viewModel.url.value, viewModel.getToken()?.let { token ->
-                    mapOf(Pair("Authorization", "Profile $token"))
-                } ?: mapOf())
+                httpHeader?.also { header ->
+                    webView.loadUrl(viewModel.url.value, header)
+                } ?: webView.loadUrl(viewModel.url.value)
             }
         }
     }
