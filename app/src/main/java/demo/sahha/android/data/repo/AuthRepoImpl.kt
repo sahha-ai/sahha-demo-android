@@ -10,6 +10,7 @@ import kotlin.coroutines.suspendCoroutine
 private const val app_id: String = "app_id"
 private const val app_secret: String = "app_secret"
 private const val external_id: String = "external_id"
+private const val profile_token: String = "profile_token"
 
 class AuthRepoImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
@@ -42,7 +43,11 @@ class AuthRepoImpl @Inject constructor(
         return sharedPreferences.getString(external_id, null)
     }
 
+    override fun saveToken(token: String) {
+        sharedPreferences.edit().putString(profile_token, token).apply()
+    }
+
     override fun getToken(): String? {
-         return BuildConfig.PROFILE_TOKEN
+         return Sahha.profileToken
     }
 }
