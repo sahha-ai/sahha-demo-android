@@ -7,6 +7,6 @@ data class SahhaAnalysisDto(
     val state: String = "",
     val score: Double = 0.0,
     val factors: List<SahhaFactorDto> = listOf(),
-    val inputData: List<String> = listOf(),
-    val createdAt: String = ""
+    val dataSources: List<String> = listOf(),
+    val scoreDateTime: String = ""
 )

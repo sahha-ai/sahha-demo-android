@@ -5,8 +5,8 @@ import demo.sahha.android.domain.model.dto.SahhaAnalysisDto
 import demo.sahha.android.domain.model.dto.SahhaFactorDto
 import demo.sahha.android.domain.repo.AnalyzeRepo
 import org.json.JSONArray
-import org.json.JSONObject
 import sdk.sahha.android.source.Sahha
+import sdk.sahha.android.source.SahhaScoreType
 import java.time.LocalDateTime
 import javax.inject.Inject
 import kotlin.coroutines.resume
@@ -19,15 +19,15 @@ class AnalyzeRepoImpl @Inject constructor(
         return DemoCache.analysis?.find { it.id == id }
     }
     override suspend fun getInferences(): List<SahhaAnalysisDto>? = suspendCoroutine { cont ->
-        Sahha.analyze(
+        Sahha.getScores(
+            types = SahhaScoreType.values().toSet(),
             dates = Pair(
-                LocalDateTime.now().minusDays(7),
+                LocalDateTime.now().minusDays(14),
                 LocalDateTime.now()
             )
         ) { _, successful ->
             successful?.also {
-                val json = JSONObject(successful)
-                val jsonArray = json.get("inferences") as JSONArray
+                val jsonArray = JSONArray(successful)
                 val analysis = mutableListOf<SahhaAnalysisDto>()
                 for (i in 0 until jsonArray.length()) {
                     val obj = jsonArray.getJSONObject(i)
@@ -52,15 +52,15 @@ class AnalyzeRepoImpl @Inject constructor(
                                 }
                                 factors
                             },
-                            inputData = let {
+                            dataSources = let {
                                 val inputData = mutableListOf<String>()
-                                val inputDataJsonArray = obj.getJSONArray("inputData")
+                                val inputDataJsonArray = obj.getJSONArray("dataSources")
                                 for (k in 0 until inputDataJsonArray.length()) {
                                     inputData.add(inputDataJsonArray.getString(k))
                                 }
                                 inputData
                             },
-                            createdAt = obj.getString("createdAt"),
+                            scoreDateTime = obj.getString("scoreDateTime"),
                         )
                     )
                 }

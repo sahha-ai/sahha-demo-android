@@ -1,13 +1,12 @@
 package demo.sahha.android.presentation.screens
 
+import LoadingCircle
 import android.annotation.SuppressLint
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -28,9 +27,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import demo.sahha.android.presentation.authenticate.AuthenticateViewModel
 import demo.sahha.android.presentation.components.RowAndColumn
+import demo.sahha.android.presentation.components.SahhaTextField
 import demo.sahha.android.presentation.components.SahhaThemeButton
 import demo.sahha.android.presentation.ui.theme.rubikFamily
-import sdk.sahha.android.source.Sahha
 
 private val verticalSpacer = Modifier.size(10.dp)
 
@@ -64,18 +63,9 @@ fun Authenticate(navController: NavController, viewModel: AuthenticateViewModel 
         },
     ) {
         RowAndColumn {
-            OutlinedTextField(
+            SahhaTextField(
                 value = viewModel.appId.value,
-                onValueChange = { viewModel.appId.value = it },
-                label = {
-                    Text(
-                        "App ID", fontFamily = rubikFamily,
-                        fontSize = 14.sp
-                    )
-                },
-                shape = RoundedCornerShape(25),
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
+                label = "App ID",
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Next,
                     keyboardType = KeyboardType.Text
@@ -83,20 +73,11 @@ fun Authenticate(navController: NavController, viewModel: AuthenticateViewModel 
                 keyboardActions = KeyboardActions(onNext = {
                     localFocusManager.moveFocus(FocusDirection.Down)
                 })
-            )
+            ) { viewModel.appId.value = it }
             Spacer(verticalSpacer)
-            OutlinedTextField(
+            SahhaTextField(
                 value = viewModel.appSecret.value,
-                onValueChange = { viewModel.appSecret.value = it },
-                label = {
-                    Text(
-                        "App Secret", fontFamily = rubikFamily,
-                        fontSize = 14.sp
-                    )
-                },
-                shape = RoundedCornerShape(25),
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
+                label = "App Secret",
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done,
                     keyboardType = KeyboardType.Text
@@ -104,20 +85,11 @@ fun Authenticate(navController: NavController, viewModel: AuthenticateViewModel 
                 keyboardActions = KeyboardActions(onDone = {
                     localFocusManager.clearFocus()
                 })
-            )
+            ) { viewModel.appSecret.value = it }
             Spacer(verticalSpacer)
-            OutlinedTextField(
+            SahhaTextField(
                 value = viewModel.externalId.value,
-                onValueChange = { viewModel.externalId.value = it },
-                label = {
-                    Text(
-                        "External ID", fontFamily = rubikFamily,
-                        fontSize = 14.sp
-                    )
-                },
-                shape = RoundedCornerShape(25),
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
+                label = "External ID",
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Done,
                     keyboardType = KeyboardType.Text
@@ -125,30 +97,23 @@ fun Authenticate(navController: NavController, viewModel: AuthenticateViewModel 
                 keyboardActions = KeyboardActions(onDone = {
                     localFocusManager.clearFocus()
                 })
-            )
+            ) { viewModel.externalId.value = it }
             Spacer(Modifier.size(20.dp))
             SahhaThemeButton(buttonTitle = "Authenticate", bottomSpace = 20.dp) {
-                Sahha.authenticate(
-                    viewModel.appId.value,
-                    viewModel.appSecret.value,
-                    viewModel.externalId.value
-                ) { error, success ->
-                    viewModel.cacheAuthData()
-
-                    if (success)
-                        viewModel.callback.value = "Stored successfully."
-                    else
-                        viewModel.callback.value = error ?: "Failed to store tokens."
-                }
+                viewModel.authenticate()
             }
-            Text(
-                viewModel.callback.value,
-                fontFamily = rubikFamily,
-                fontSize = 14.sp,
-                modifier = Modifier.verticalScroll(
-                    rememberScrollState()
+            if (viewModel.isLoading.value) {
+                LoadingCircle()
+            } else {
+                Text(
+                    viewModel.callback.value,
+                    fontFamily = rubikFamily,
+                    fontSize = 14.sp,
+                    modifier = Modifier.verticalScroll(
+                        rememberScrollState()
+                    )
                 )
-            )
+            }
         }
     }
 }

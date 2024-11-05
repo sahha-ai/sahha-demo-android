@@ -3,18 +3,19 @@ package demo.sahha.android.presentation.webview
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import demo.sahha.android.data.DemoCache
+import demo.sahha.android.domain.interactor.AuthInteractor
 import demo.sahha.android.domain.interactor.WebViewInteractor
 import javax.inject.Inject
 
 @HiltViewModel
 class WebViewViewModel @Inject constructor(
-    private val interactor: WebViewInteractor
+    private val authInteractor: AuthInteractor
 ) : ViewModel() {
-    var isLoading = mutableStateOf(false)
-    var url = mutableStateOf(interactor.getUrl() ?: "https://docs.sahha.ai")
-    var showWebView = mutableStateOf(false)
+    val isLoading = mutableStateOf(false)
+    val url = mutableStateOf( "https://development-webview.netlify.app/app")
 
-    fun cacheUrl() {
-        interactor.saveUrl(url.value)
+    fun getToken(): String? {
+        return authInteractor.getToken()
     }
 }

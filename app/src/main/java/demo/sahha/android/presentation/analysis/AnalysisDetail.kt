@@ -1,6 +1,5 @@
 package demo.sahha.android.presentation.analysis
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,11 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -95,7 +90,7 @@ fun AnalysisDetail(
                     Column {
                         Spacer(modifier = Modifier.padding(vertical = 10.dp))
                         Text(text = "Input Data", fontFamily = rubikFamily)
-                        analysis.inputData.forEach { input ->
+                        analysis.dataSources.forEach { input ->
                             Text(text = input, fontFamily = rubikFamily, modifier = Modifier.padding(start = 10.dp))
                         }
                         Spacer(modifier = Modifier.padding(bottom = 10.dp))
@@ -107,7 +102,7 @@ fun AnalysisDetail(
                 ) {
                     Text(text = "Created At", fontFamily = rubikFamily)
                     Row { /* TODO: Colours based on state */
-                        Text(text = viewModel.formatTime(analysis.createdAt))
+                        Text(text = viewModel.formatTime(analysis.scoreDateTime))
                     }
                 }
             }

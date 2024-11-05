@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import sdk.sahha.android.source.Sahha
+import sdk.sahha.android.source.SahhaSensor
 import sdk.sahha.android.source.SahhaSensorStatus
 import javax.inject.Inject
 
@@ -11,9 +12,10 @@ class PermissionViewModel @Inject constructor(
 
 ) : ViewModel() {
     val activityRecognitionStatus = mutableStateOf(SahhaSensorStatus.pending.name)
+    private val sensors = SahhaSensor.values().toSet()
 
     fun getSensorStatus(context: Context) {
-        Sahha.getSensorStatus(context) { _, newStatus ->
+        Sahha.getSensorStatus(context, sensors) { _, newStatus ->
             try {
                 activityRecognitionStatus.value = newStatus.name
             } catch (e: Exception) {
@@ -23,7 +25,7 @@ class PermissionViewModel @Inject constructor(
     }
 
     fun enableSensors(context: Context) {
-        Sahha.enableSensors(context) { _, newStatus ->
+        Sahha.enableSensors(context, sensors) { _, newStatus ->
             try {
                 activityRecognitionStatus.value = newStatus.name
             } catch (e: Exception) {
