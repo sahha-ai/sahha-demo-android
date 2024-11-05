@@ -46,7 +46,7 @@ class ProfileViewModel @Inject constructor(
 
             interactor.cacheDemographic(demographic)
 
-            age.value = demographic.age.toString()
+            age.value = demographic.age?.toString() ?: ""
             gender.value = demographic.gender ?: "Please select"
             country.value = demographic.country ?: ""
             birthCountry.value = demographic.birthCountry ?: ""
@@ -58,7 +58,7 @@ class ProfileViewModel @Inject constructor(
             relationship.value = demographic.relationship ?: ""
             locale.value = demographic.locale ?: ""
             livingArrangement.value = demographic.livingArrangement ?: ""
-            birthDate.value = demographic.birthDate ?: ""
+            birthDate.value = demographic.birthDate?.substringBefore('T') ?: ""
             isLoading.value = false
         }
     }
