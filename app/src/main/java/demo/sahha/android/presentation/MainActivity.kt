@@ -18,6 +18,7 @@ import demo.sahha.android.presentation.screens.Analyze
 import demo.sahha.android.presentation.screens.Authenticate
 import demo.sahha.android.presentation.screens.Home
 import demo.sahha.android.presentation.screens.Permission
+import demo.sahha.android.presentation.stats.Stats
 import demo.sahha.android.presentation.ui.theme.SahhaexampleandroidTheme
 import sdk.sahha.android.source.Sahha
 import sdk.sahha.android.source.SahhaConverterUtility
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
         setTheme(R.style.SahhaexampleandroidTheme)
 
         Sahha.configure(
-            application,
+            this,
             SahhaSettings(
                 environment = SahhaEnvironment.sandbox,
             )
@@ -66,6 +67,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(Screen.WebView.route) {
                         WebView(navController)
+                    }
+                    composable(Screen.Stats.route) {
+                        Stats(navController)
                     }
                 }
             }
