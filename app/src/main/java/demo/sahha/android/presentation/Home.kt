@@ -63,6 +63,10 @@ fun Home(navController: NavController) {
                     SahhaThemeButton(buttonTitle = "Scores") {
                         navController.navigate(Screen.WebView.route)
                     }
+
+                    SahhaThemeButton(buttonTitle = "Stats") {
+                        navController.navigate(Screen.Stats.route)
+                    }
                 }
             }
         }
