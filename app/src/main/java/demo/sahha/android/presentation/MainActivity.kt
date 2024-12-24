@@ -14,16 +14,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import demo.sahha.android.R
 import demo.sahha.android.presentation.analysis.AnalysisDetail
 import demo.sahha.android.presentation.profile.Profile
+import demo.sahha.android.presentation.sample.SamplesScreen
+import demo.sahha.android.presentation.sample_detail.SampleDetailScreen
 import demo.sahha.android.presentation.screens.Analyze
 import demo.sahha.android.presentation.screens.Authenticate
 import demo.sahha.android.presentation.screens.Home
 import demo.sahha.android.presentation.screens.Permission
-import demo.sahha.android.presentation.stats.Stats
+import demo.sahha.android.presentation.stats.StatsScreen
 import demo.sahha.android.presentation.ui.theme.SahhaexampleandroidTheme
 import sdk.sahha.android.source.Sahha
-import sdk.sahha.android.source.SahhaConverterUtility
 import sdk.sahha.android.source.SahhaEnvironment
-import sdk.sahha.android.source.SahhaSensor
 import sdk.sahha.android.source.SahhaSettings
 
 @AndroidEntryPoint
@@ -69,7 +69,19 @@ class MainActivity : ComponentActivity() {
                         WebView(navController)
                     }
                     composable(Screen.Stats.route) {
-                        Stats(navController)
+                        StatsScreen(navController)
+                    }
+                    composable(Screen.Samples.route) {
+                        SamplesScreen(navController)
+                    }
+                    composable("${Screen.SamplesDetailScreen.route}/{sensorType}") { backStackEntry ->
+                        val sensorType = backStackEntry.arguments?.getString("sensorType")
+                        sensorType?.also { type ->
+                            SampleDetailScreen(
+                                type,
+                                navController
+                            )
+                        }
                     }
                 }
             }
