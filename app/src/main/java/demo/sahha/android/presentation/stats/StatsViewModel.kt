@@ -54,6 +54,7 @@ class StatsViewModel @Inject constructor(
                 result.first?.also { err ->
                     sahhaStats += SahhaStat(
                         id = "",
+                        category = "",
                         type = sensor.name,
                         value = 0.0,
                         unit = "",
