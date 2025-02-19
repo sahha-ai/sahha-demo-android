@@ -42,6 +42,7 @@ fun SampleDetailScreen(
             ) {
                 items(samples) { sampleData ->
                     Text("id: ${sampleData.id}")
+                    Text("category: ${sampleData.category}")
                     Text("type: ${sampleData.type}")
                     Text("value: ${sampleData.value}")
                     Text("unit: ${sampleData.unit}")
