@@ -20,6 +20,7 @@ import demo.sahha.android.presentation.screens.Analyze
 import demo.sahha.android.presentation.screens.Authenticate
 import demo.sahha.android.presentation.screens.Home
 import demo.sahha.android.presentation.screens.Permission
+import demo.sahha.android.presentation.smart_watch.SmartWatch
 import demo.sahha.android.presentation.stats.StatsScreen
 import demo.sahha.android.presentation.ui.theme.SahhaexampleandroidTheme
 import sdk.sahha.android.source.Sahha
@@ -82,6 +83,9 @@ class MainActivity : ComponentActivity() {
                                 navController
                             )
                         }
+                    }
+                    composable(Screen.SmartWatch.route) {
+                        SmartWatch(navController)
                     }
                 }
             }
