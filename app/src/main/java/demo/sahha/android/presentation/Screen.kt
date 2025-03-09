@@ -10,4 +10,5 @@ sealed class Screen(val route: String) {
     object Stats: Screen(route = "stats")
     object Samples: Screen(route = "samples")
     object SamplesDetailScreen: Screen(route = "samples_detail")
+    object SmartWatch: Screen(route = "smart_watch")
 }
