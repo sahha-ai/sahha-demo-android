@@ -67,6 +67,10 @@ fun Home(navController: NavController) {
                     SahhaThemeButton(buttonTitle = "Samples") {
                         navController.navigate(Screen.Samples.route)
                     }
+
+                    SahhaThemeButton(buttonTitle = "Smart Watch") {
+                        navController.navigate(Screen.SmartWatch.route)
+                    }
                 }
             }
         }
